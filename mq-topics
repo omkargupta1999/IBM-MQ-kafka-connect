@@ -1,0 +1,29 @@
+1. topic creation
+
+oc exec -it dev-kafka-cluster-broker-0 -n dev-kafka -- \
+bin/kafka-topics.sh \
+--bootstrap-server localhost:9093 \
+--create \
+--topic neft.raw.kafka.topic \
+--partitions 3 \
+--replication-factor 3
+
+
+
+
+oc exec -it dev-kafka-cluster-broker-0 -n dev-kafka -- \
+bin/kafka-topics.sh \
+--bootstrap-server localhost:9093 \
+--create \
+--topic neft.processed.kafka.topic \
+--partitions 3 \
+--replication-factor 3
+
+
+
+
+2. Verify topics exist
+oc exec -it dev-kafka-cluster-broker-0 -n dev-kafka -- \
+bin/kafka-topics.sh \
+--bootstrap-server localhost:9093 \
+--list | grep neft
