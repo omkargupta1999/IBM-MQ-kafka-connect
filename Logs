@@ -1,3 +1,20 @@
+[osuser@bastion ~]$ oc get po -n dev-kafka -o wide
+NAME                                                 READY   STATUS    RESTARTS        AGE     IP              NODE                      NOMINATED NODE   READINESS GATES
+dev-console-console-deployment-6bf885486b-lhh9s      2/2     Running   0               4d1h    172.16.17.47    worker3.dev.sbiepay.sbi   <none>           <none>
+dev-kafka-cluster-broker-0                           1/1     Running   0               18h     172.16.17.105   worker3.dev.sbiepay.sbi   <none>           <none>
+dev-kafka-cluster-broker-1                           1/1     Running   0               18h     172.16.14.4     worker2.dev.sbiepay.sbi   <none>           <none>
+dev-kafka-cluster-broker-2                           1/1     Running   0               18h     172.16.8.238    worker1.dev.sbiepay.sbi   <none>           <none>
+dev-kafka-cluster-controller-3                       1/1     Running   0               18h     172.16.17.103   worker3.dev.sbiepay.sbi   <none>           <none>
+dev-kafka-cluster-controller-4                       1/1     Running   0               18h     172.16.15.253   worker2.dev.sbiepay.sbi   <none>           <none>
+dev-kafka-cluster-controller-5                       1/1     Running   0               18h     172.16.17.104   worker3.dev.sbiepay.sbi   <none>           <none>
+dev-kafka-cluster-cruise-control-7678c88585-mwkxd    1/1     Running   0               35m     172.16.17.115   worker3.dev.sbiepay.sbi   <none>           <none>
+dev-kafka-cluster-entity-operator-656dcf5cdd-b6qxp   2/2     Running   0               47m     172.16.17.114   worker3.dev.sbiepay.sbi   <none>           <none>
+dev-kafka-connect-mq-test-connect-0                  1/1     Running   1 (5m40s ago)   7m34s   172.16.17.125   worker3.dev.sbiepay.sbi   <none>           <none>
+dev-kafka-connect-mq-test-connect-1                  1/1     Running   1 (5m41s ago)   8m48s   172.16.9.4      worker1.dev.sbiepay.sbi   <none>           <none>
+dev-kafka-connect-mq-test-connect-2                  1/1     Running   1 (5m40s ago)   9m51s   172.16.14.27    worker2.dev.sbiepay.sbi   <none>           <none>
+
+
+
 [osuser@bastion ~]$ oc logs -f dev-kafka-connect-mq-test-connect-0 -n dev-kafka
 Preparing Connect truststore
 Adding /opt/kafka/connect-certs/dev-kafka-cluster-cluster-ca-cert/ca.crt to truststore /tmp/kafka/cluster.truststore.p12 with alias /opt/kafka/connect-certs/dev-kafka-cluster-cluster-ca-cert/ca.crt
