@@ -1,0 +1,11 @@
+FROM quay.io/strimzi/kafka:0.46.1-kafka-3.9.0
+
+USER root
+
+RUN mkdir -p /opt/kafka/plugins/ibm-mq
+
+COPY jars/*.jar /opt/kafka/plugins/ibm-mq/
+
+RUN chown -R 1001:1001 /opt/kafka/plugins
+
+USER 1001
