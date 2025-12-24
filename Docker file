@@ -4,8 +4,8 @@ USER root
 
 RUN mkdir -p /opt/kafka/plugins/ibm-mq
 
-COPY jars/*.jar /opt/kafka/plugins/ibm-mq/
-
-RUN chown -R 1001:1001 /opt/kafka/plugins
+COPY jars/kafka-connect-mq-source-2.6.0-jar-with-dependencies.jar /opt/kafka/plugins/ibm-mq/
+COPY jars/kafka-connect-mq-sink-2.2.1-jar-with-dependencies.jar   /opt/kafka/plugins/ibm-mq/
+COPY jars/com.ibm.mq.allclient-9.4.4.1.jar                        /opt/kafka/plugins/ibm-mq/
 
 USER 1001
