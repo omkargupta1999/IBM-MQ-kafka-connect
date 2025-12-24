@@ -12,12 +12,12 @@ spec:
     topics: neft.processed.kafka.topic
 
     mq.queue.manager: SBI_NEFT
-    mq.queue: SBI_NEFT_OUTWARD
     mq.channel.name: EPAY.TO.IPH
     mq.connection.name.list: 10.176.10.213(2001)
+    mq.queue: SBI_NEFT_OUTWARD
 
-    mq.message.builder: com.ibm.eventstreams.connect.mqsink.builders.DefaultMessageBuilder
     mq.message.body.format: string
+    mq.message.builder: com.ibm.eventstreams.connect.mqsink.builders.DefaultMessageBuilder
 
     value.converter: org.apache.kafka.connect.converters.ByteArrayConverter
     value.converter.schemas.enable: "false"
