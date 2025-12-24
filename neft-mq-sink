@@ -3,6 +3,7 @@ kind: KafkaConnector
 metadata:
   name: neft-mq-sink
   namespace: dev-kafka
+  resourceVersion: "547641055"
   labels:
     strimzi.io/cluster: dev-kafka-connect-mq-test
 spec:
