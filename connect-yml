@@ -6,15 +6,21 @@ metadata:
   annotations:
     strimzi.io/use-connector-resources: "true"
 spec:
-  version: 3.9.0
   replicas: 3
+
+  # ✅ CORRECT LISTENER (SCRAM ENABLED)
+  bootstrapServers: dev-kafka-cluster-kafka-bootstrap.dev-kafka.svc.cluster.local:9092
+
+  version: 3.9.0
 
   image: registry.dev.sbiepay.sbi:8443/library/kafka-connect-mq:v2
 
-  bootstrapServers: dev-kafka-cluster-kafka-bootstrap.dev-kafka.svc.cluster.local:9093
-
-  # ❌ REMOVE SCRAM COMPLETELY
-  # authentication:  <-- DELETE THIS BLOCK
+  authentication:
+    type: scram-sha-512
+    username: epay-user
+    passwordSecret:
+      secretName: epay-user
+      password: password
 
   tls:
     trustedCertificates:
@@ -36,13 +42,10 @@ spec:
     value.converter: org.apache.kafka.connect.converters.ByteArrayConverter
     value.converter.schemas.enable: "false"
 
-    offset.flush.interval.ms: 10000
-    offset.flush.timeout.ms: 5000
-
   resources:
     requests:
-      cpu: 2
+      cpu: "2"
       memory: 4Gi
     limits:
-      cpu: 4
+      cpu: "4"
       memory: 8Gi
