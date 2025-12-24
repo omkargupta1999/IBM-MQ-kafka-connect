@@ -9,12 +9,12 @@ spec:
   class: com.ibm.eventstreams.connect.mqsource.MQSourceConnector
   tasksMax: 1
   config:
-    topic: neft.raw.kafka.topic
-
     mq.queue.manager: SBI_NEFT
-    mq.queue: SBI_NEFT_INWARD
     mq.channel.name: IPH.TO.SBIEPAY
     mq.connection.name.list: 10.176.10.213(2001)
+    mq.queue: SBI_NEFT_INWARD
+
+    topic: neft.raw.kafka.topic
 
     mq.record.builder: com.ibm.eventstreams.connect.mqsource.builders.DefaultRecordBuilder
     mq.message.body.format: string
