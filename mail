@@ -1,2 +1,59 @@
 “Kafka cluster, Kafka Connect runtime, MQ connector plugins, connector configurations, and network connectivity from OpenShift are fully verified and working.
 The failure is due to IBM MQ rejecting client connections with MQRC_UNKNOWN_CHANNEL_NAME (2540), which indicates missing or misconfigured SVRCONN channels on the MQ Queue Manager.”
+
+
+
+SubjectNEFT MQ–Kafka Integration | MQ Channel Validation Required
+
+Hi Team,
+
+We have completed verification of the Kafka Connect setup on OpenShift and confirm that the Kafka side is fully operational.
+
+Status from our side (Verified):
+
+Kafka cluster and Kafka Connect pods are running and healthy
+
+IBM MQ Source & Sink connector plugins are loaded successfully
+
+Network connectivity from OpenShift to MQ host 10.176.10.213:2001 is working (port reachable)
+
+Connector configurations are applied correctly
+
+Current Blocker (Observed from MQ error logs):
+Both Source and Sink connectors are failing with the below MQ error:
+
+MQRC_UNKNOWN_CHANNEL_NAME (2540)
+
+Error indicates that the specified SVRCONN channels are not defined or not accessible on the MQ Queue Manager
+
+MQ Details currently configured by us:
+
+Queue Manager: SBI_NEFT
+
+Host: 10.176.10.213
+
+Port: 2001
+
+Source Channel: IPH.TO.SBIEPAY
+
+Sink Channel: EPAY.TO.IPH
+
+Connection Mode: Client
+
+TLS / User Authentication: Not enabled
+
+Request from MQ Team:
+Please verify and confirm:
+
+SVRCONN channels IPH.TO.SBIEPAY and EPAY.TO.IPH are created on SBI_NEFT
+
+Channels are enabled for client connections
+
+Channels allow connections from the OpenShift network
+
+Listener on port 2001 is active and mapped correctly to these channels
+
+Once the above is confirmed/fixed, we will immediately re-test the end-to-end NEFT MQ ↔ Kafka flow.
+
+Thanks & Regards,
+Saadi/Omkar
