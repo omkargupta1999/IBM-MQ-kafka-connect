@@ -1,3 +1,95 @@
+[osuser@bastion ~]$ oc get pods -n dev-kafka
+NAME                                                 READY   STATUS    RESTARTS      AGE
+dev-console-console-deployment-6bf885486b-lhh9s      2/2     Running   0             4d1h
+dev-kafka-cluster-broker-0                           1/1     Running   0             18h
+dev-kafka-cluster-broker-1                           1/1     Running   0             18h
+dev-kafka-cluster-broker-2                           1/1     Running   0             18h
+dev-kafka-cluster-controller-3                       1/1     Running   0             18h
+dev-kafka-cluster-controller-4                       1/1     Running   0             18h
+dev-kafka-cluster-controller-5                       1/1     Running   0             18h
+dev-kafka-cluster-cruise-control-7678c88585-mwkxd    1/1     Running   0             41m
+dev-kafka-cluster-entity-operator-656dcf5cdd-b6qxp   2/2     Running   0             53m
+dev-kafka-connect-mq-test-connect-0                  1/1     Running   1 (10m ago)   12m
+dev-kafka-connect-mq-test-connect-1                  1/1     Running   1 (10m ago)   14m
+dev-kafka-connect-mq-test-connect-2                  1/1     Running   1 (10m ago)   15m
+dev-kafka-mirror-maker-mirrormaker2-0                0/1     Pending   0             18h
+[osuser@bastion ~]$
+[osuser@bastion ~]$ oc get svc -n dev-kafka | grep connect
+dev-kafka-connect-mq-test-connect            ClusterIP   None             <none>        8083/TCP                                       130m
+dev-kafka-connect-mq-test-connect-api        ClusterIP   172.30.128.20    <none>        8083/TCP                                       130m
+[osuser@bastion ~]$ oc exec -it dev-kafka-connect-mq-test-connect-0 -n dev-kafka -- \
+> curl http://localhost:8083/connectors
+[][osuser@bastion ~]$ oc exec -it dev-kafka-connect-mq-test-connect-0 -n dev-kafka -- curl http://localhost:8083/connectors
+[][osuser@bastion ~]$
+[osuser@bastion ~]$
+[osuser@bastion ~]$
+[osuser@bastion ~]$
+[osuser@bastion ~]$ oc exec -it dev-kafka-connect-mq-test-connect-0 -n dev-kafka -- curl http://localhost:8083/connectors
+[][osuser@bastion ~]$
+[osuser@bastion ~]$ oc exec -it dev-kafka-connect-mq-test-connect-0 -n dev-kafka -- curl http://localhost:8083/connectors
+[][osuser@bastion ~]$ oc exec -it dev-kafka-connect-mq-test-connect-0 -n dev-kafka -- \
+> curl http://localhost:8083/connector-plugins | grep MQ
+[{"class":"com.ibm.eventstreams.connect.mqsink.MQSinkConnector","type":"sink","version":"2.2.1"},{"class":"org.apache.kafka.connect.mirror.MirrorCheckpointConnector","type":"source","version":"3.9.0"},{"class":"org.apache.kafka.connect.mirror.MirrorHeartbeatConnector","type":"source","version":"3.9.0"},{"class":"org.apache.kafka.connect.mirror.MirrorSourceConnector","type":"source","version":"3.9.0"}]
+[osuser@bastion ~]$
+[osuser@bastion ~]$
+[osuser@bastion ~]$ oc exec -it dev-kafka-connect-mq-test-connect-0 -n dev-kafka -- curl http://localhost:8083/connector-plugins | grep MQ
+[{"class":"com.ibm.eventstreams.connect.mqsink.MQSinkConnector","type":"sink","version":"2.2.1"},{"class":"org.apache.kafka.connect.mirror.MirrorCheckpointConnector","type":"source","version":"3.9.0"},{"class":"org.apache.kafka.connect.mirror.MirrorHeartbeatConnector","type":"source","version":"3.9.0"},{"class":"org.apache.kafka.connect.mirror.MirrorSourceConnector","type":"source","version":"3.9.0"}]
+[osuser@bastion ~]$
+[osuser@bastion ~]$
+[osuser@bastion ~]$ curl http://localhost:8083/connectors/neft-mq-source/status
+curl: (7) Failed to connect to localhost port 8083: Connection refused
+[osuser@bastion ~]$
+[osuser@bastion ~]$ oc exec -it dev-kafka-connect-mq-test-connect-0 -n dev-kafka curl http://localhost:8083/connectors/neft-mq-source/status
+kubectl exec [POD] [COMMAND] is DEPRECATED and will be removed in a future version. Use kubectl exec [POD] -- [COMMAND] instead.
+{"error_code":404,"message":"No status found for connector neft-mq-source"}[osuser@bastion ~]$
+[osuser@bastion ~]$
+[osuser@bastion ~]$ oc exec -it dev-kafka-connect-mq-test-connect-0 -n dev-kafka
+error: you must specify at least one command for the container
+[osuser@bastion ~]$
+[osuser@bastion ~]$ oc exec -it dev-kafka-connect-mq-test-connect-0 -n dev-kafka -- sh
+sh-5.1$
+sh-5.1$
+sh-5.1$ curl http://localhost:8083/connectors/neft-mq-source/status
+{"error_code":404,"message":"No status found for connector neft-mq-source"}sh-5.1$
+sh-5.1$
+sh-5.1$ curl http://localhost:8083/connectors/neft-mq-sink/status
+{"error_code":404,"message":"No status found for connector neft-mq-sink"}sh-5.1$
+sh-5.1$
+sh-5.1$ oc exec -it dev-kafka-cluster-kafka-0 -n dev-kafka -- \
+bin/kafka-topics.sh \
+--bootstrap-server localhost:9^C3 \
+--list | grep neft
+sh-5.1$
+sh-5.1$ exit
+exit
+command terminated with exit code 130
+[osuser@bastion ~]$
+[osuser@bastion ~]$ oc exec -it dev-kafka-cluster-kafka-0 -n dev-kafka -- \
+> bin/kafka-topics.sh \
+> --bootstrap-server localhost:9093 \
+> --list | grep neft
+Error from server (NotFound): pods "dev-kafka-cluster-kafka-0" not found
+[osuser@bastion ~]$ oc get pods -n dev-kafka
+NAME                                                 READY   STATUS    RESTARTS      AGE
+dev-console-console-deployment-6bf885486b-lhh9s      2/2     Running   0             4d1h
+dev-kafka-cluster-broker-0                           1/1     Running   0             18h
+dev-kafka-cluster-broker-1                           1/1     Running   0             18h
+dev-kafka-cluster-broker-2                           1/1     Running   0             18h
+dev-kafka-cluster-controller-3                       1/1     Running   0             18h
+dev-kafka-cluster-controller-4                       1/1     Running   0             18h
+dev-kafka-cluster-controller-5                       1/1     Running   0             18h
+dev-kafka-cluster-cruise-control-7678c88585-mwkxd    1/1     Running   0             44m
+dev-kafka-cluster-entity-operator-656dcf5cdd-b6qxp   2/2     Running   0             56m
+dev-kafka-connect-mq-test-connect-0                  1/1     Running   1 (14m ago)   16m
+dev-kafka-connect-mq-test-connect-1                  1/1     Running   1 (14m ago)   17m
+dev-kafka-connect-mq-test-connect-2                  1/1     Running   1 (14m ago)   18m
+dev-kafka-mirror-maker-mirrormaker2-0                0/1     Pending   0             18h
+[osuser@bastion ~]$
+[osuser@bastion ~]$ oc exec -it dev-kafka-cluster-broker-1  -n dev-kafka -- bin/kafka-topics.sh --bootstrap-server localhost:9093 --list | grep neft
+
+
+
+----------------------------------------
 Perfect 👍
 Now that **KafkaConnect is `Ready` and all pods are running**, let’s **verify end-to-end** step by step — **no confusion, only exact checks**.
 
