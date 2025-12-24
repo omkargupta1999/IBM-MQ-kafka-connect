@@ -1,0 +1,12 @@
+[root@registry ~]# podman pull quay.io/strimzi/kafka:0.46.1-kafka-3.9.0
+Trying to pull quay.io/strimzi/kafka:0.46.1-kafka-3.9.0...
+Getting image source signatures
+Copying blob 269fed58f0a6 [=>------------------------------------] 6.0MiB / 116.4MiB | 18.9 KiB/s
+Copying blob ff6f4d5fce2a [=================>--------------------] 17.4MiB / 36.5MiB | 20.1 MiB/s
+Copying blob e382d2ed320a done   |
+Copying blob 20bc0972eaf6 [======>-------------------------------] 15.1MiB / 82.8MiB | 20.6 MiB/s
+Copying blob e6cc11ebfc46 done   |
+Copying blob 7b9239568a9a [=============================>--------] 13.8MiB / 17.7MiB | 20.5 MiB/s
+Copying blob 7aaac877f0b3 done   |
+Copying blob c2691cd14abe done   |
+Copying blob 2f39331b7615 [=======>------------------------------] 2.5MiB / 12.3MiB | 35.9 MiB/s
