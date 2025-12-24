@@ -1,0 +1,2 @@
+“Kafka cluster, Kafka Connect runtime, MQ connector plugins, connector configurations, and network connectivity from OpenShift are fully verified and working.
+The failure is due to IBM MQ rejecting client connections with MQRC_UNKNOWN_CHANNEL_NAME (2540), which indicates missing or misconfigured SVRCONN channels on the MQ Queue Manager.”
