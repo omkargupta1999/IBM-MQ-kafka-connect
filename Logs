@@ -1,0 +1,30 @@
+[osuser@registry MQ-Kafka-Connect]$ ll
+total 8
+-rw-r----- 1 osuser osuser  445 Dec 24 12:34 Dockerfile
+drwxr-x--- 2 osuser osuser 4096 Dec 19 13:03 jars
+[osuser@registry MQ-Kafka-Connect]$
+[osuser@registry MQ-Kafka-Connect]$
+[osuser@registry MQ-Kafka-Connect]$ sudo podman build -t registry.dev.sbiepay.sbi:8443/library/kafka-connect-mq:v2 -f Dockerfile .
+STEP 1/8: FROM registry.dev.sbiepay.sbi:8443/ubi9/strimzi/kafka:0.46.1-kafka-3.9.0
+STEP 2/8: USER root
+--> c58ce8ab7d50
+STEP 3/8: RUN mkdir -p /opt/kafka/plugins/ibm-mq
+--> e13a0e504e45
+STEP 4/8: COPY kafka-connect-mq-source-*.jar /opt/kafka/plugins/ibm-mq/
+Error: building at STEP "COPY kafka-connect-mq-source-*.jar /opt/kafka/plugins/ibm-mq/": checking on sources under "/home/osuser/MQ-Kafka-Connect": Rel: can't make  relative to /home/osuser/MQ-Kafka-Connect; copier: stat: ["/kafka-connect-mq-source-*.jar"]: no such file or directory
+[osuser@registry MQ-Kafka-Connect]$ ll
+total 8
+-rw-r----- 1 osuser osuser  445 Dec 24 12:34 Dockerfile
+drwxr-x--- 2 osuser osuser 4096 Dec 19 13:03 jars
+[osuser@registry MQ-Kafka-Connect]$
+[osuser@registry MQ-Kafka-Connect]$
+[osuser@registry MQ-Kafka-Connect]$ cd jars/
+[osuser@registry jars]$
+[osuser@registry jars]$
+[osuser@registry jars]$ ll
+total 30448
+-rw-r----- 1 osuser osuser  8457886 Dec 19 12:50 com.ibm.mq.allclient-9.4.4.1.jar
+-rw-r----- 1 osuser osuser  2440667 Dec 19 12:50 kafka-connect-mq-sink-2.2.1-dependencies-exc-mq.jar
+-rw-r----- 1 osuser osuser    48409 Dec 19 12:50 kafka-connect-mq-sink-2.2.1.jar
+-rw-r----- 1 osuser osuser 20229036 Dec 19 12:50 kafka-connect-mq-sink-2.2.1-jar-with-dependencies.jar
+[osuser@registry jars]$
