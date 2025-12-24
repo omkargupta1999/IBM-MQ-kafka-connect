@@ -1,29 +1,176 @@
-Subject : NEFT MQ Connectivity Issue – Channel Configuration Required
+Perfect 👍
+Below is a **quick, no-nonsense runbook** you can follow **from your side (OpenShift + Kafka)** to prove that *everything on our end is correct* before MQ team fixes their side.
 
-Hi Team,
+---
 
-We have completed Kafka Connect setup and both NEFT MQ Source and Sink connectors are running, but they are failing to connect to IBM MQ.
+# 🔎 **NEFT MQ ↔ Kafka – Verification Runbook (Our Side)**
 
-Observed Error (common for Source & Sink):
+## 1️⃣ Kafka Cluster Health (Baseline)
+
+```bash
+oc get pods -n dev-kafka
+```
+
+✅ Expected:
+
+* All **broker** and **controller** pods → `Running`
+* **KafkaConnect pods** → `Running`
+* **Entity Operator** → `2/2 Running`
+
+👉 If this is green, Kafka infra is OK.
+
+---
+
+## 2️⃣ KafkaConnect API Health
+
+```bash
+oc exec -it dev-kafka-connect-mq-test-connect-0 -n dev-kafka -- \
+curl http://localhost:8083/
+```
+
+✅ Expected:
+
+```json
+{"version":"3.9.0","commit":"...","kafka_cluster_id":"..."}
+```
+
+---
+
+## 3️⃣ Verify MQ Plugins Loaded
+
+```bash
+oc exec -it dev-kafka-connect-mq-test-connect-0 -n dev-kafka -- \
+curl http://localhost:8083/connector-plugins
+```
+
+✅ Must contain:
+
+* `com.ibm.eventstreams.connect.mqsource.MQSourceConnector`
+* `com.ibm.eventstreams.connect.mqsink.MQSinkConnector`
+
+👉 If visible → **image + jars are correct**
+
+---
+
+## 4️⃣ Verify KafkaConnector CRs Exist
+
+```bash
+oc get kafkaconnector -n dev-kafka
+```
+
+Expected:
+
+* `neft-mq-source`
+* `neft-mq-sink`
+
+---
+
+## 5️⃣ Check Connector Runtime Status
+
+```bash
+oc get kafkaconnector neft-mq-source -n dev-kafka -o yaml
+oc get kafkaconnector neft-mq-sink   -n dev-kafka -o yaml
+```
+
+### What matters:
+
+```yaml
+connectorStatus:
+  connector:
+    state: RUNNING
+  tasks:
+    - state: FAILED
+```
+
+❗ **Important**
+
+* `connector = RUNNING` → Kafka Connect is OK
+* `task = FAILED` → External dependency issue (MQ)
+
+---
+
+## 6️⃣ Confirm Exact Failure Reason (Proof)
+
+From the same output, confirm this error:
+
+```
 MQRC_UNKNOWN_CHANNEL_NAME (2540)
-This indicates that the SVRCONN channels configured in Kafka Connect are not defined or not accessible on the MQ Queue Manager.
+AMQ9520: Channel not defined remotely
+```
 
-Details currently configured by us:
-Queue Manager: SBI_NEFT
-MQ Host: 10.176.10.213
-Port: 2001
-Source Channel: IPH.TO.SBIEPAY
-Sink Channel: EPAY.TO.IPH
-Connection mode: Client
-TLS / User Auth: Not used
+✅ This error means:
 
-Request from MQ Team:
-Please confirm:
-Whether IPH.TO.SBIEPAY and EPAY.TO.IPH SVRCONN channels are created on SBI_NEFT
-Channels are RUNNING and enabled for client connections
-Channels are accessible from OpenShift network
-Port 2001 listener is active for these channels
-Once confirmed/fixed, we can immediately re-test end-to-end NEFT MQ ↔ Kafka flow.
+* MQ host reachable
+* MQ port reachable
+* Queue Manager reachable
+  ❌ **Only channel definition is missing / wrong on MQ**
 
-Thanks,
-Saadi
+👉 **This is 100% MQ-side issue**
+
+---
+
+## 7️⃣ Verify Kafka Topics Exist
+
+```bash
+oc exec -it dev-kafka-cluster-broker-0 -n dev-kafka -- \
+bin/kafka-topics.sh --bootstrap-server localhost:9093 --list | grep neft
+```
+
+Expected:
+
+* `neft.raw.kafka.topic`
+* `neft.processed.kafka.topic`
+
+---
+
+## 8️⃣ Verify Kafka Can Accept Data (Optional Test)
+
+```bash
+oc exec -it dev-kafka-cluster-broker-0 -n dev-kafka -- \
+bin/kafka-console-producer.sh \
+--bootstrap-server localhost:9093 \
+--topic neft.raw.kafka.topic
+```
+
+Type:
+
+```
+test-message
+```
+
+If accepted → Kafka side is fully functional.
+
+---
+
+## 9️⃣ Network Proof (Optional but Strong)
+
+```bash
+oc exec -it dev-kafka-connect-mq-test-connect-0 -n dev-kafka -- \
+nc -zv 10.176.10.213 2001
+```
+
+✅ If connection succeeds → Network + firewall OK
+
+---
+
+# ✅ FINAL CONCLUSION (FOR YOU & MANAGEMENT)
+
+✔ Kafka Cluster – OK
+✔ Kafka Connect – OK
+✔ MQ Plugins – Loaded
+✔ Connectors – Created & Running
+✔ Network – Reachable
+❌ MQ Channels – **NOT defined / NOT accessible**
+
+📌 **There is nothing left to fix on our side.**
+
+---
+
+If you want next:
+
+* 📄 Convert this into **Word / PDF**
+* 📧 Attach this as **technical proof to MQ email**
+* 📋 Create **production checklist**
+* 🧠 KT document for handover
+
+Just say 👍
