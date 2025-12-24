@@ -1,698 +1,195 @@
-2025-12-24 09:04:07,272 INFO initializing Kafka metrics collector (org.apache.kafka.common.telemetry.internals.KafkaMetricsCollector) [DistributedHerder-connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083-1]
-2025-12-24 09:04:07,296 INFO These configurations '[producer.ssl.truststore.password, group.id, rest.advertised.port, plugin.path, admin.security.protocol, config.providers.strimzifile.class, consumer.ssl.truststore.location, producer.ssl.truststore.location, metrics.context.connect.kafka.cluster.id, config.providers.strimzienv.param.allowlist.pattern, status.storage.replication.factor, config.providers.strimzidir.class, offset.storage.topic, consumer.security.protocol, value.converter, key.converter, admin.ssl.truststore.password, consumer.ssl.truststore.password, consumer.client.rack, config.storage.topic, producer.security.protocol, metrics.context.connect.group.id, rest.advertised.host.name, status.storage.topic, offset.flush.timeout.ms, config.storage.replication.factor, offset.flush.interval.ms, value.converter.schemas.enable, offset.storage.replication.factor, config.providers.strimzidir.param.allowed.paths, config.providers.strimzienv.class, admin.ssl.truststore.location]' were supplied but are not used yet. (org.apache.kafka.clients.producer.ProducerConfig) [DistributedHerder-connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083-1]
-2025-12-24 09:04:07,297 INFO Kafka version: 3.9.0 (org.apache.kafka.common.utils.AppInfoParser) [DistributedHerder-connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083-1]
-2025-12-24 09:04:07,297 INFO Kafka commitId: a60e31147e6b01ee (org.apache.kafka.common.utils.AppInfoParser) [DistributedHerder-connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083-1]
-2025-12-24 09:04:07,297 INFO Kafka startTimeMs: 1766567047297 (org.apache.kafka.common.utils.AppInfoParser) [DistributedHerder-connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083-1]
-2025-12-24 09:04:07,299 INFO ConsumerConfig values:
-        allow.auto.create.topics = true
-        auto.commit.interval.ms = 5000
-        auto.include.jmx.reporter = true
-        auto.offset.reset = earliest
-        bootstrap.servers = [dev-kafka-cluster-kafka-bootstrap.dev-kafka.svc.cluster.local:9093]
-        check.crcs = true
-        client.dns.lookup = use_all_dns_ips
-        client.id = dev-connect-cluster-configs
-        client.rack =
-        connections.max.idle.ms = 540000
-        default.api.timeout.ms = 60000
-        enable.auto.commit = false
-        enable.metrics.push = true
-        exclude.internal.topics = true
-        fetch.max.bytes = 52428800
-        fetch.max.wait.ms = 500
-        fetch.min.bytes = 1
-        group.id = dev-connect-cluster
-        group.instance.id = null
-        group.protocol = classic
-        group.remote.assignor = null
-        heartbeat.interval.ms = 3000
-        interceptor.classes = []
-        internal.leave.group.on.close = true
-        internal.throw.on.fetch.stable.offset.unsupported = false
-        isolation.level = read_uncommitted
-        key.deserializer = class org.apache.kafka.common.serialization.StringDeserializer
-        max.partition.fetch.bytes = 1048576
-        max.poll.interval.ms = 300000
-        max.poll.records = 500
-        metadata.max.age.ms = 300000
-        metadata.recovery.strategy = none
-        metric.reporters = []
-        metrics.num.samples = 2
-        metrics.recording.level = INFO
-        metrics.sample.window.ms = 30000
-        partition.assignment.strategy = [class org.apache.kafka.clients.consumer.RangeAssignor, class org.apache.kafka.clients.consumer.CooperativeStickyAssignor]
-        receive.buffer.bytes = 65536
-        reconnect.backoff.max.ms = 1000
-        reconnect.backoff.ms = 50
-        request.timeout.ms = 30000
-        retry.backoff.max.ms = 1000
-        retry.backoff.ms = 100
-        sasl.client.callback.handler.class = null
-        sasl.jaas.config = null
-        sasl.kerberos.kinit.cmd = /usr/bin/kinit
-        sasl.kerberos.min.time.before.relogin = 60000
-        sasl.kerberos.service.name = null
-        sasl.kerberos.ticket.renew.jitter = 0.05
-        sasl.kerberos.ticket.renew.window.factor = 0.8
-        sasl.login.callback.handler.class = null
-        sasl.login.class = null
-        sasl.login.connect.timeout.ms = null
-        sasl.login.read.timeout.ms = null
-        sasl.login.refresh.buffer.seconds = 300
-        sasl.login.refresh.min.period.seconds = 60
-        sasl.login.refresh.window.factor = 0.8
-        sasl.login.refresh.window.jitter = 0.05
-        sasl.login.retry.backoff.max.ms = 10000
-        sasl.login.retry.backoff.ms = 100
-        sasl.mechanism = GSSAPI
-        sasl.oauthbearer.clock.skew.seconds = 30
-        sasl.oauthbearer.expected.audience = null
-        sasl.oauthbearer.expected.issuer = null
-        sasl.oauthbearer.header.urlencode = false
-        sasl.oauthbearer.jwks.endpoint.refresh.ms = 3600000
-        sasl.oauthbearer.jwks.endpoint.retry.backoff.max.ms = 10000
-        sasl.oauthbearer.jwks.endpoint.retry.backoff.ms = 100
-        sasl.oauthbearer.jwks.endpoint.url = null
-        sasl.oauthbearer.scope.claim.name = scope
-        sasl.oauthbearer.sub.claim.name = sub
-        sasl.oauthbearer.token.endpoint.url = null
-        security.protocol = SSL
-        security.providers = null
-        send.buffer.bytes = 131072
-        session.timeout.ms = 45000
-        socket.connection.setup.timeout.max.ms = 30000
-        socket.connection.setup.timeout.ms = 10000
-        ssl.cipher.suites = null
-        ssl.enabled.protocols = [TLSv1.2, TLSv1.3]
-        ssl.endpoint.identification.algorithm = https
-        ssl.engine.factory.class = null
-        ssl.key.password = null
-        ssl.keymanager.algorithm = SunX509
-        ssl.keystore.certificate.chain = null
-        ssl.keystore.key = null
-        ssl.keystore.location = null
-        ssl.keystore.password = null
-        ssl.keystore.type = JKS
-        ssl.protocol = TLSv1.3
-        ssl.provider = null
-        ssl.secure.random.implementation = null
-        ssl.trustmanager.algorithm = PKIX
-        ssl.truststore.certificates = null
-        ssl.truststore.location = /tmp/kafka/cluster.truststore.p12
-        ssl.truststore.password = [hidden]
-        ssl.truststore.type = PKCS12
-        value.deserializer = class org.apache.kafka.common.serialization.ByteArrayDeserializer
- (org.apache.kafka.clients.consumer.ConsumerConfig) [DistributedHerder-connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083-1]
-2025-12-24 09:04:07,300 INFO initializing Kafka metrics collector (org.apache.kafka.common.telemetry.internals.KafkaMetricsCollector) [DistributedHerder-connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083-1]
-2025-12-24 09:04:07,323 INFO These configurations '[producer.ssl.truststore.password, rest.advertised.port, plugin.path, admin.security.protocol, config.providers.strimzifile.class, consumer.ssl.truststore.location, producer.ssl.truststore.location, metrics.context.connect.kafka.cluster.id, config.providers.strimzienv.param.allowlist.pattern, status.storage.replication.factor, config.providers.strimzidir.class, offset.storage.topic, consumer.security.protocol, value.converter, key.converter, admin.ssl.truststore.password, consumer.ssl.truststore.password, consumer.client.rack, config.storage.topic, producer.security.protocol, metrics.context.connect.group.id, rest.advertised.host.name, status.storage.topic, offset.flush.timeout.ms, config.storage.replication.factor, offset.flush.interval.ms, value.converter.schemas.enable, offset.storage.replication.factor, config.providers.strimzidir.param.allowed.paths, config.providers.strimzienv.class, admin.ssl.truststore.location]' were supplied but are not used yet. (org.apache.kafka.clients.consumer.ConsumerConfig) [DistributedHerder-connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083-1]
-2025-12-24 09:04:07,324 INFO Kafka version: 3.9.0 (org.apache.kafka.common.utils.AppInfoParser) [DistributedHerder-connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083-1]
-2025-12-24 09:04:07,324 INFO Kafka commitId: a60e31147e6b01ee (org.apache.kafka.common.utils.AppInfoParser) [DistributedHerder-connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083-1]
-2025-12-24 09:04:07,324 INFO Kafka startTimeMs: 1766567047324 (org.apache.kafka.common.utils.AppInfoParser) [DistributedHerder-connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083-1]
-2025-12-24 09:04:07,326 INFO [Producer clientId=dev-connect-cluster-configs] Cluster ID: 3aEx1xmUSTWs8xSplBnYtA (org.apache.kafka.clients.Metadata) [kafka-producer-network-thread | dev-connect-cluster-configs]
-2025-12-24 09:04:07,355 INFO [Consumer clientId=dev-connect-cluster-configs, groupId=dev-connect-cluster] Cluster ID: 3aEx1xmUSTWs8xSplBnYtA (org.apache.kafka.clients.Metadata) [DistributedHerder-connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083-1]
-2025-12-24 09:04:07,357 INFO [Consumer clientId=dev-connect-cluster-configs, groupId=dev-connect-cluster] Assigned to partition(s): dev-connect-cluster-configs-0 (org.apache.kafka.clients.consumer.internals.ClassicKafkaConsumer) [DistributedHerder-connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083-1]
-2025-12-24 09:04:07,358 INFO [Consumer clientId=dev-connect-cluster-configs, groupId=dev-connect-cluster] Seeking to earliest offset of partition dev-connect-cluster-configs-0 (org.apache.kafka.clients.consumer.internals.SubscriptionState) [DistributedHerder-connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083-1]
-2025-12-24 09:04:07,387 INFO [Consumer clientId=dev-connect-cluster-configs, groupId=dev-connect-cluster] Resetting offset for partition dev-connect-cluster-configs-0 to position FetchPosition{offset=0, offsetEpoch=Optional.empty, currentLeader=LeaderAndEpoch{leader=Optional[dev-kafka-cluster-broker-0.dev-kafka-cluster-kafka-brokers.dev-kafka.svc:9093 (id: 0 rack: null)], epoch=0}}. (org.apache.kafka.clients.consumer.internals.SubscriptionState) [DistributedHerder-connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083-1]
-2025-12-24 09:04:07,450 INFO Finished reading KafkaBasedLog for topic dev-connect-cluster-configs (org.apache.kafka.connect.util.KafkaBasedLog) [DistributedHerder-connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083-1]
-2025-12-24 09:04:07,450 INFO Started KafkaBasedLog for topic dev-connect-cluster-configs (org.apache.kafka.connect.util.KafkaBasedLog) [DistributedHerder-connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083-1]
-2025-12-24 09:04:07,450 INFO Started KafkaConfigBackingStore (org.apache.kafka.connect.storage.KafkaConfigBackingStore) [DistributedHerder-connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083-1]
-2025-12-24 09:04:07,496 INFO [Worker clientId=connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083, groupId=dev-connect-cluster] Cluster ID: 3aEx1xmUSTWs8xSplBnYtA (org.apache.kafka.clients.Metadata) [DistributedHerder-connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083-1]
-2025-12-24 09:04:07,497 INFO [Worker clientId=connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083, groupId=dev-connect-cluster] Discovered group coordinator dev-kafka-cluster-broker-2.dev-kafka-cluster-kafka-brokers.dev-kafka.svc:9093 (id: 2147483645 rack: null) (org.apache.kafka.connect.runtime.distributed.WorkerCoordinator) [DistributedHerder-connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083-1]
-2025-12-24 09:04:07,501 INFO [Worker clientId=connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083, groupId=dev-connect-cluster] Rebalance started (org.apache.kafka.connect.runtime.distributed.WorkerCoordinator) [DistributedHerder-connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083-1]
-2025-12-24 09:04:07,501 INFO [Worker clientId=connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083, groupId=dev-connect-cluster] (Re-)joining group (org.apache.kafka.connect.runtime.distributed.WorkerCoordinator) [DistributedHerder-connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083-1]
-2025-12-24 09:04:07,531 INFO [Worker clientId=connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083, groupId=dev-connect-cluster] (Re-)joining group (org.apache.kafka.connect.runtime.distributed.WorkerCoordinator) [DistributedHerder-connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083-1]
-2025-12-24 09:04:10,163 INFO [Worker clientId=connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083, groupId=dev-connect-cluster] Successfully joined group with generation Generation{generationId=7, memberId='connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083-ca38eb4b-4110-4832-835d-0367ab936b47', protocol='sessioned'} (org.apache.kafka.connect.runtime.distributed.WorkerCoordinator) [DistributedHerder-connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083-1]
-2025-12-24 09:04:10,170 INFO [Worker clientId=connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083, groupId=dev-connect-cluster] Successfully synced group in generation Generation{generationId=7, memberId='connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083-ca38eb4b-4110-4832-835d-0367ab936b47', protocol='sessioned'} (org.apache.kafka.connect.runtime.distributed.WorkerCoordinator) [DistributedHerder-connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083-1]
-2025-12-24 09:04:10,173 INFO [Worker clientId=connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083, groupId=dev-connect-cluster] Joined group at generation 7 with protocol version 2 and got assignment: Assignment{error=0, leader='connect-dev-kafka-connect-mq-test-connect-2.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083-5fc9a683-a992-4d08-bdea-ecc1477e526e', leaderUrl='http://dev-kafka-connect-mq-test-connect-2.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083/', offset=2, connectorIds=[], taskIds=[], revokedConnectorIds=[], revokedTaskIds=[], delay=0} with rebalance delay: 0 (org.apache.kafka.connect.runtime.distributed.DistributedHerder) [DistributedHerder-connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083-1]
-2025-12-24 09:04:10,173 INFO [Worker clientId=connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083, groupId=dev-connect-cluster] Herder started (org.apache.kafka.connect.runtime.distributed.DistributedHerder) [DistributedHerder-connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083-1]
-2025-12-24 09:04:10,174 WARN [Worker clientId=connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083, groupId=dev-connect-cluster] Catching up to assignment's config offset. (org.apache.kafka.connect.runtime.distributed.DistributedHerder) [DistributedHerder-connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083-1]
-2025-12-24 09:04:10,174 INFO [Worker clientId=connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083, groupId=dev-connect-cluster] Current config state offset -1 is behind group assignment 2, reading to end of config log (org.apache.kafka.connect.runtime.distributed.DistributedHerder) [DistributedHerder-connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083-1]
-2025-12-24 09:04:10,183 INFO [Worker clientId=connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083, groupId=dev-connect-cluster] Finished reading to end of log and updated config snapshot, new config log offset: 2 (org.apache.kafka.connect.runtime.distributed.DistributedHerder) [DistributedHerder-connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083-1]
-2025-12-24 09:04:10,183 INFO [Worker clientId=connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083, groupId=dev-connect-cluster] Starting connectors and tasks using config offset 2 (org.apache.kafka.connect.runtime.distributed.DistributedHerder) [DistributedHerder-connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083-1]
-2025-12-24 09:04:10,183 INFO [Worker clientId=connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083, groupId=dev-connect-cluster] Finished starting connectors and tasks (org.apache.kafka.connect.runtime.distributed.DistributedHerder) [DistributedHerder-connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083-1]
-2025-12-24 09:05:01,371 INFO 172.16.16.2 - - [24/Dec/2025:09:05:01 +0000] "GET /health HTTP/1.1" 200 94 "-" "kube-probe/1.31" 156 (org.apache.kafka.connect.runtime.rest.RestServer) [qtp958509062-27]
-2025-12-24 09:05:01,371 INFO 172.16.16.2 - - [24/Dec/2025:09:05:01 +0000] "GET /health HTTP/1.1" 200 94 "-" "kube-probe/1.31" 156 (org.apache.kafka.connect.runtime.rest.RestServer) [qtp958509062-23]
-2025-12-24 09:05:04,177 INFO [Worker clientId=connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083, groupId=dev-connect-cluster] Rebalance started (org.apache.kafka.connect.runtime.distributed.WorkerCoordinator) [DistributedHerder-connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083-1]
-2025-12-24 09:05:04,177 INFO [Worker clientId=connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083, groupId=dev-connect-cluster] (Re-)joining group (org.apache.kafka.connect.runtime.distributed.WorkerCoordinator) [DistributedHerder-connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083-1]
-2025-12-24 09:05:04,184 INFO [Worker clientId=connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083, groupId=dev-connect-cluster] Successfully joined group with generation Generation{generationId=8, memberId='connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083-ca38eb4b-4110-4832-835d-0367ab936b47', protocol='sessioned'} (org.apache.kafka.connect.runtime.distributed.WorkerCoordinator) [DistributedHerder-connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083-1]
-2025-12-24 09:05:04,198 INFO [Worker clientId=connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083, groupId=dev-connect-cluster] Successfully synced group in generation Generation{generationId=8, memberId='connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083-ca38eb4b-4110-4832-835d-0367ab936b47', protocol='sessioned'} (org.apache.kafka.connect.runtime.distributed.WorkerCoordinator) [DistributedHerder-connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083-1]
-2025-12-24 09:05:04,198 INFO [Worker clientId=connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083, groupId=dev-connect-cluster] Joined group at generation 8 with protocol version 2 and got assignment: Assignment{error=0, leader='connect-dev-kafka-connect-mq-test-connect-2.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083-5fc9a683-a992-4d08-bdea-ecc1477e526e', leaderUrl='http://dev-kafka-connect-mq-test-connect-2.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083/', offset=2, connectorIds=[], taskIds=[], revokedConnectorIds=[], revokedTaskIds=[], delay=0} with rebalance delay: 0 (org.apache.kafka.connect.runtime.distributed.DistributedHerder) [DistributedHerder-connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083-1]
-2025-12-24 09:05:04,199 INFO [Worker clientId=connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083, groupId=dev-connect-cluster] Starting connectors and tasks using config offset 2 (org.apache.kafka.connect.runtime.distributed.DistributedHerder) [DistributedHerder-connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083-1]
-2025-12-24 09:05:04,199 INFO [Worker clientId=connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083, groupId=dev-connect-cluster] Finished starting connectors and tasks (org.apache.kafka.connect.runtime.distributed.DistributedHerder) [DistributedHerder-connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083-1]
-2025-12-24 09:05:11,166 INFO 172.16.16.2 - - [24/Dec/2025:09:05:11 +0000] "GET /health HTTP/1.1" 200 94 "-" "kube-probe/1.31" 7 (org.apache.kafka.connect.runtime.rest.RestServer) [qtp958509062-20]
-2025-12-24 09:05:11,166 INFO 172.16.16.2 - - [24/Dec/2025:09:05:11 +0000] "GET /health HTTP/1.1" 200 94 "-" "kube-probe/1.31" 7 (org.apache.kafka.connect.runtime.rest.RestServer) [qtp958509062-21]
-2025-12-24 09:05:21,162 INFO 172.16.16.2 - - [24/Dec/2025:09:05:21 +0000] "GET /health HTTP/1.1" 200 94 "-" "kube-probe/1.31" 5 (org.apache.kafka.connect.runtime.rest.RestServer) [qtp958509062-25]
-2025-12-24 09:05:21,162 INFO 172.16.16.2 - - [24/Dec/2025:09:05:21 +0000] "GET /health HTTP/1.1" 200 94 "-" "kube-probe/1.31" 5 (org.apache.kafka.connect.runtime.rest.RestServer) [qtp958509062-20]
-2025-12-24 09:05:22,190 INFO [Worker clientId=connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083, groupId=dev-connect-cluster] Rebalance started (org.apache.kafka.connect.runtime.distributed.WorkerCoordinator) [DistributedHerder-connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083-1]
-2025-12-24 09:05:22,190 INFO [Worker clientId=connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083, groupId=dev-connect-cluster] (Re-)joining group (org.apache.kafka.connect.runtime.distributed.WorkerCoordinator) [DistributedHerder-connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083-1]
-2025-12-24 09:05:22,194 INFO [Worker clientId=connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083, groupId=dev-connect-cluster] Successfully joined group with generation Generation{generationId=9, memberId='connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083-ca38eb4b-4110-4832-835d-0367ab936b47', protocol='sessioned'} (org.apache.kafka.connect.runtime.distributed.WorkerCoordinator) [DistributedHerder-connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083-1]
-2025-12-24 09:05:22,205 INFO [Worker clientId=connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083, groupId=dev-connect-cluster] Successfully synced group in generation Generation{generationId=9, memberId='connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083-ca38eb4b-4110-4832-835d-0367ab936b47', protocol='sessioned'} (org.apache.kafka.connect.runtime.distributed.WorkerCoordinator) [DistributedHerder-connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083-1]
-2025-12-24 09:05:22,206 INFO [Worker clientId=connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083, groupId=dev-connect-cluster] Joined group at generation 9 with protocol version 2 and got assignment: Assignment{error=0, leader='connect-dev-kafka-connect-mq-test-connect-2.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083-5fc9a683-a992-4d08-bdea-ecc1477e526e', leaderUrl='http://dev-kafka-connect-mq-test-connect-2.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083/', offset=2, connectorIds=[], taskIds=[], revokedConnectorIds=[], revokedTaskIds=[], delay=0} with rebalance delay: 0 (org.apache.kafka.connect.runtime.distributed.DistributedHerder) [DistributedHerder-connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083-1]
-2025-12-24 09:05:22,206 INFO [Worker clientId=connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083, groupId=dev-connect-cluster] Starting connectors and tasks using config offset 2 (org.apache.kafka.connect.runtime.distributed.DistributedHerder) [DistributedHerder-connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083-1]
-2025-12-24 09:05:22,207 INFO [Worker clientId=connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083, groupId=dev-connect-cluster] Finished starting connectors and tasks (org.apache.kafka.connect.runtime.distributed.DistributedHerder) [DistributedHerder-connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083-1]
-2025-12-24 09:05:31,162 INFO 172.16.16.2 - - [24/Dec/2025:09:05:31 +0000] "GET /health HTTP/1.1" 200 94 "-" "kube-probe/1.31" 5 (org.apache.kafka.connect.runtime.rest.RestServer) [qtp958509062-26]
-2025-12-24 09:05:31,165 INFO 172.16.16.2 - - [24/Dec/2025:09:05:31 +0000] "GET /health HTTP/1.1" 200 94 "-" "kube-probe/1.31" 8 (org.apache.kafka.connect.runtime.rest.RestServer) [qtp958509062-23]
-2025-12-24 09:05:41,164 INFO 172.16.16.2 - - [24/Dec/2025:09:05:41 +0000] "GET /health HTTP/1.1" 200 94 "-" "kube-probe/1.31" 7 (org.apache.kafka.connect.runtime.rest.RestServer) [qtp958509062-21]
-2025-12-24 09:05:41,165 INFO 172.16.16.2 - - [24/Dec/2025:09:05:41 +0000] "GET /health HTTP/1.1" 200 94 "-" "kube-probe/1.31" 7 (org.apache.kafka.connect.runtime.rest.RestServer) [qtp958509062-25]
-2025-12-24 09:05:51,162 INFO 172.16.16.2 - - [24/Dec/2025:09:05:51 +0000] "GET /health HTTP/1.1" 200 94 "-" "kube-probe/1.31" 6 (org.apache.kafka.connect.runtime.rest.RestServer) [qtp958509062-26]
-2025-12-24 09:05:51,162 INFO 172.16.16.2 - - [24/Dec/2025:09:05:51 +0000] "GET /health HTTP/1.1" 200 94 "-" "kube-probe/1.31" 6 (org.apache.kafka.connect.runtime.rest.RestServer) [qtp958509062-23]
-2025-12-24 09:06:01,166 INFO 172.16.16.2 - - [24/Dec/2025:09:06:01 +0000] "GET /health HTTP/1.1" 200 94 "-" "kube-probe/1.31" 9 (org.apache.kafka.connect.runtime.rest.RestServer) [qtp958509062-21]
-2025-12-24 09:06:01,166 INFO 172.16.16.2 - - [24/Dec/2025:09:06:01 +0000] "GET /health HTTP/1.1" 200 94 "-" "kube-probe/1.31" 9 (org.apache.kafka.connect.runtime.rest.RestServer) [qtp958509062-25]
-2025-12-24 09:06:10,230 INFO [Worker clientId=connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083, groupId=dev-connect-cluster] Group coordinator dev-kafka-cluster-broker-2.dev-kafka-cluster-kafka-brokers.dev-kafka.svc:9093 (id: 2147483645 rack: null) is unavailable or invalid due to cause: session timed out without receiving a heartbeat response. isDisconnected: false. Rediscovery will be attempted. (org.apache.kafka.connect.runtime.distributed.WorkerCoordinator) [kafka-coordinator-heartbeat-thread | dev-connect-cluster]
-2025-12-24 09:06:10,230 INFO [Worker clientId=connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083, groupId=dev-connect-cluster] Requesting disconnect from last known coordinator dev-kafka-cluster-broker-2.dev-kafka-cluster-kafka-brokers.dev-kafka.svc:9093 (id: 2147483645 rack: null) (org.apache.kafka.connect.runtime.distributed.WorkerCoordinator) [kafka-coordinator-heartbeat-thread | dev-connect-cluster]
-2025-12-24 09:06:10,231 INFO [Worker clientId=connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083, groupId=dev-connect-cluster] Client requested disconnect from node 2147483645 (org.apache.kafka.clients.NetworkClient) [kafka-coordinator-heartbeat-thread | dev-connect-cluster]
-2025-12-24 09:06:10,239 INFO [Worker clientId=connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083, groupId=dev-connect-cluster] Cancelled in-flight HEARTBEAT request with correlation id 47 due to node 2147483645 being disconnected (elapsed time since creation: 9014ms, elapsed time since send: 9014ms, throttle time: 0ms, request timeout: 40000ms) (org.apache.kafka.clients.NetworkClient) [kafka-coordinator-heartbeat-thread | dev-connect-cluster]
-2025-12-24 09:06:10,239 INFO [Worker clientId=connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083, groupId=dev-connect-cluster] Cancelled in-flight HEARTBEAT request with correlation id 48 due to node 2147483645 being disconnected (elapsed time since creation: 6011ms, elapsed time since send: 6011ms, throttle time: 0ms, request timeout: 40000ms) (org.apache.kafka.clients.NetworkClient) [kafka-coordinator-heartbeat-thread | dev-connect-cluster]
-2025-12-24 09:06:10,240 INFO [Worker clientId=connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083, groupId=dev-connect-cluster] Cancelled in-flight HEARTBEAT request with correlation id 49 due to node 2147483645 being disconnected (elapsed time since creation: 3007ms, elapsed time since send: 3007ms, throttle time: 0ms, request timeout: 40000ms) (org.apache.kafka.clients.NetworkClient) [kafka-coordinator-heartbeat-thread | dev-connect-cluster]
-2025-12-24 09:06:10,275 INFO [Worker clientId=connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083, groupId=dev-connect-cluster] Discovered group coordinator dev-kafka-cluster-broker-2.dev-kafka-cluster-kafka-brokers.dev-kafka.svc:9093 (id: 2147483645 rack: null) (org.apache.kafka.connect.runtime.distributed.WorkerCoordinator) [DistributedHerder-connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083-1]
-2025-12-24 09:06:10,276 INFO [Worker clientId=connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083, groupId=dev-connect-cluster] Group coordinator dev-kafka-cluster-broker-2.dev-kafka-cluster-kafka-brokers.dev-kafka.svc:9093 (id: 2147483645 rack: null) is unavailable or invalid due to cause: coordinator unavailable. isDisconnected: false. Rediscovery will be attempted. (org.apache.kafka.connect.runtime.distributed.WorkerCoordinator) [DistributedHerder-connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083-1]
-2025-12-24 09:06:10,276 INFO [Worker clientId=connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083, groupId=dev-connect-cluster] Requesting disconnect from last known coordinator dev-kafka-cluster-broker-2.dev-kafka-cluster-kafka-brokers.dev-kafka.svc:9093 (id: 2147483645 rack: null) (org.apache.kafka.connect.runtime.distributed.WorkerCoordinator) [DistributedHerder-connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083-1]
-2025-12-24 09:06:10,398 INFO [Worker clientId=connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083, groupId=dev-connect-cluster] Discovered group coordinator dev-kafka-cluster-broker-2.dev-kafka-cluster-kafka-brokers.dev-kafka.svc:9093 (id: 2147483645 rack: null) (org.apache.kafka.connect.runtime.distributed.WorkerCoordinator) [DistributedHerder-connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083-1]
-2025-12-24 09:06:11,162 INFO 172.16.16.2 - - [24/Dec/2025:09:06:11 +0000] "GET /health HTTP/1.1" 200 94 "-" "kube-probe/1.31" 5 (org.apache.kafka.connect.runtime.rest.RestServer) [qtp958509062-26]
-2025-12-24 09:06:11,166 INFO 172.16.16.2 - - [24/Dec/2025:09:06:11 +0000] "GET /health HTTP/1.1" 200 94 "-" "kube-probe/1.31" 9 (org.apache.kafka.connect.runtime.rest.RestServer) [qtp958509062-23]
-2025-12-24 09:06:19,065 INFO [Worker clientId=connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083, groupId=dev-connect-cluster] Attempt to heartbeat with Generation{generationId=9, memberId='connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083-ca38eb4b-4110-4832-835d-0367ab936b47', protocol='sessioned'} and group instance id Optional.empty failed due to UNKNOWN_MEMBER_ID, resetting generation (org.apache.kafka.connect.runtime.distributed.WorkerCoordinator) [DistributedHerder-connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083-1]
-2025-12-24 09:06:19,065 INFO [Worker clientId=connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083, groupId=dev-connect-cluster] Resetting generation and member id due to: encountered UNKNOWN_MEMBER_ID from HEARTBEAT response (org.apache.kafka.connect.runtime.distributed.WorkerCoordinator) [DistributedHerder-connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083-1]
-2025-12-24 09:06:19,066 INFO [Worker clientId=connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083, groupId=dev-connect-cluster] Rebalance started (org.apache.kafka.connect.runtime.distributed.WorkerCoordinator) [DistributedHerder-connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083-1]
-2025-12-24 09:06:19,066 INFO [Worker clientId=connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083, groupId=dev-connect-cluster] (Re-)joining group (org.apache.kafka.connect.runtime.distributed.WorkerCoordinator) [DistributedHerder-connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083-1]
-2025-12-24 09:06:19,067 INFO [Worker clientId=connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083, groupId=dev-connect-cluster] Attempt to heartbeat with stale Generation{generationId=9, memberId='connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083-ca38eb4b-4110-4832-835d-0367ab936b47', protocol='sessioned'} and group instance id Optional.empty failed due to UNKNOWN_MEMBER_ID, ignoring the error (org.apache.kafka.connect.runtime.distributed.WorkerCoordinator) [DistributedHerder-connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083-1]
-2025-12-24 09:06:19,068 INFO [Worker clientId=connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083, groupId=dev-connect-cluster] Attempt to heartbeat with stale Generation{generationId=9, memberId='connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083-ca38eb4b-4110-4832-835d-0367ab936b47', protocol='sessioned'} and group instance id Optional.empty failed due to UNKNOWN_MEMBER_ID, ignoring the error (org.apache.kafka.connect.runtime.distributed.WorkerCoordinator) [DistributedHerder-connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083-1]
-2025-12-24 09:06:19,068 INFO [Worker clientId=connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083, groupId=dev-connect-cluster] (Re-)joining group (org.apache.kafka.connect.runtime.distributed.WorkerCoordinator) [DistributedHerder-connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083-1]
-2025-12-24 09:06:19,455 INFO [Worker clientId=connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083, groupId=dev-connect-cluster] Group coordinator dev-kafka-cluster-broker-2.dev-kafka-cluster-kafka-brokers.dev-kafka.svc:9093 (id: 2147483645 rack: null) is unavailable or invalid due to cause: error response NOT_COORDINATOR. isDisconnected: false. Rediscovery will be attempted. (org.apache.kafka.connect.runtime.distributed.WorkerCoordinator) [DistributedHerder-connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083-1]
-2025-12-24 09:06:19,455 INFO [Worker clientId=connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083, groupId=dev-connect-cluster] Requesting disconnect from last known coordinator dev-kafka-cluster-broker-2.dev-kafka-cluster-kafka-brokers.dev-kafka.svc:9093 (id: 2147483645 rack: null) (org.apache.kafka.connect.runtime.distributed.WorkerCoordinator) [DistributedHerder-connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083-1]
-2025-12-24 09:06:19,455 INFO [Worker clientId=connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083, groupId=dev-connect-cluster] JoinGroup failed: This is not the correct coordinator. Marking coordinator unknown. Sent generation was Generation{generationId=-1, memberId='connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083-d2af0aee-0d91-4c10-b40f-ffc1b222d0cf', protocol='null'} (org.apache.kafka.connect.runtime.distributed.WorkerCoordinator) [DistributedHerder-connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083-1]
-2025-12-24 09:06:19,456 INFO [Worker clientId=connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083, groupId=dev-connect-cluster] Request joining group due to: rebalance failed due to 'This is not the correct coordinator.' (NotCoordinatorException) (org.apache.kafka.connect.runtime.distributed.WorkerCoordinator) [DistributedHerder-connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083-1]
-2025-12-24 09:06:19,556 INFO [Worker clientId=connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083, groupId=dev-connect-cluster] Client requested disconnect from node 2147483645 (org.apache.kafka.clients.NetworkClient) [DistributedHerder-connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083-1]
-2025-12-24 09:06:19,560 INFO [Worker clientId=connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083, groupId=dev-connect-cluster] Discovered group coordinator dev-kafka-cluster-broker-0.dev-kafka-cluster-kafka-brokers.dev-kafka.svc:9093 (id: 2147483647 rack: null) (org.apache.kafka.connect.runtime.distributed.WorkerCoordinator) [DistributedHerder-connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083-1]
-2025-12-24 09:06:19,561 INFO [Worker clientId=connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083, groupId=dev-connect-cluster] (Re-)joining group (org.apache.kafka.connect.runtime.distributed.WorkerCoordinator) [DistributedHerder-connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083-1]
-2025-12-24 09:06:19,582 INFO [Worker clientId=connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083, groupId=dev-connect-cluster] JoinGroup failed: The coordinator is not aware of this member. Need to re-join the group. Sent generation was Generation{generationId=-1, memberId='connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083-d2af0aee-0d91-4c10-b40f-ffc1b222d0cf', protocol='null'} (org.apache.kafka.connect.runtime.distributed.WorkerCoordinator) [DistributedHerder-connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083-1]
-2025-12-24 09:06:19,583 INFO [Worker clientId=connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083, groupId=dev-connect-cluster] Resetting generation and member id due to: encountered UNKNOWN_MEMBER_ID from JOIN_GROUP response (org.apache.kafka.connect.runtime.distributed.WorkerCoordinator) [DistributedHerder-connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083-1]
-2025-12-24 09:06:19,583 INFO [Worker clientId=connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083, groupId=dev-connect-cluster] Request joining group due to: rebalance failed due to 'The coordinator is not aware of this member.' (UnknownMemberIdException) (org.apache.kafka.connect.runtime.distributed.WorkerCoordinator) [DistributedHerder-connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083-1]
-2025-12-24 09:06:19,583 INFO [Worker clientId=connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083, groupId=dev-connect-cluster] Rebalance started (org.apache.kafka.connect.runtime.distributed.WorkerCoordinator) [DistributedHerder-connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083-1]
-2025-12-24 09:06:19,583 INFO [Worker clientId=connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083, groupId=dev-connect-cluster] (Re-)joining group (org.apache.kafka.connect.runtime.distributed.WorkerCoordinator) [DistributedHerder-connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083-1]
-2025-12-24 09:06:19,586 INFO [Worker clientId=connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083, groupId=dev-connect-cluster] (Re-)joining group (org.apache.kafka.connect.runtime.distributed.WorkerCoordinator) [DistributedHerder-connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083-1]
-2025-12-24 09:06:23,893 INFO [Worker clientId=connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083, groupId=dev-connect-cluster] Successfully joined group with generation Generation{generationId=10, memberId='connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083-db2fb8c3-2177-43db-b575-74b5ea242ba0', protocol='sessioned'} (org.apache.kafka.connect.runtime.distributed.WorkerCoordinator) [DistributedHerder-connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083-1]
-2025-12-24 09:06:23,941 INFO [Worker clientId=connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083, groupId=dev-connect-cluster] Successfully synced group in generation Generation{generationId=10, memberId='connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083-db2fb8c3-2177-43db-b575-74b5ea242ba0', protocol='sessioned'} (org.apache.kafka.connect.runtime.distributed.WorkerCoordinator) [DistributedHerder-connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083-1]
-2025-12-24 09:06:23,942 INFO [Worker clientId=connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083, groupId=dev-connect-cluster] Joined group at generation 10 with protocol version 2 and got assignment: Assignment{error=0, leader='connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083-db2fb8c3-2177-43db-b575-74b5ea242ba0', leaderUrl='http://dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083/', offset=2, connectorIds=[], taskIds=[], revokedConnectorIds=[], revokedTaskIds=[], delay=0} with rebalance delay: 0 (org.apache.kafka.connect.runtime.distributed.DistributedHerder) [DistributedHerder-connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083-1]
-2025-12-24 09:06:23,943 INFO [Worker clientId=connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083, groupId=dev-connect-cluster] Starting connectors and tasks using config offset 2 (org.apache.kafka.connect.runtime.distributed.DistributedHerder) [DistributedHerder-connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083-1]
-2025-12-24 09:06:23,943 INFO [Worker clientId=connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083, groupId=dev-connect-cluster] Finished starting connectors and tasks (org.apache.kafka.connect.runtime.distributed.DistributedHerder) [DistributedHerder-connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083-1]
-2025-12-24 09:06:23,946 INFO 172.16.16.2 - - [24/Dec/2025:09:06:21 +0000] "GET /health HTTP/1.1" 200 94 "-" "kube-probe/1.31" 2789 (org.apache.kafka.connect.runtime.rest.RestServer) [qtp958509062-21]
-2025-12-24 09:06:23,946 INFO 172.16.16.2 - - [24/Dec/2025:09:06:21 +0000] "GET /health HTTP/1.1" 200 94 "-" "kube-probe/1.31" 2789 (org.apache.kafka.connect.runtime.rest.RestServer) [qtp958509062-25]
-2025-12-24 09:06:26,895 INFO [Worker clientId=connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083, groupId=dev-connect-cluster] Rebalance started (org.apache.kafka.connect.runtime.distributed.WorkerCoordinator) [DistributedHerder-connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083-1]
-2025-12-24 09:06:26,895 INFO [Worker clientId=connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083, groupId=dev-connect-cluster] (Re-)joining group (org.apache.kafka.connect.runtime.distributed.WorkerCoordinator) [DistributedHerder-connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083-1]
-2025-12-24 09:06:26,900 INFO [Worker clientId=connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083, groupId=dev-connect-cluster] Successfully joined group with generation Generation{generationId=11, memberId='connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083-db2fb8c3-2177-43db-b575-74b5ea242ba0', protocol='sessioned'} (org.apache.kafka.connect.runtime.distributed.WorkerCoordinator) [DistributedHerder-connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083-1]
-2025-12-24 09:06:26,916 INFO [Worker clientId=connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083, groupId=dev-connect-cluster] Successfully synced group in generation Generation{generationId=11, memberId='connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083-db2fb8c3-2177-43db-b575-74b5ea242ba0', protocol='sessioned'} (org.apache.kafka.connect.runtime.distributed.WorkerCoordinator) [DistributedHerder-connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083-1]
-2025-12-24 09:06:26,916 INFO [Worker clientId=connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083, groupId=dev-connect-cluster] Joined group at generation 11 with protocol version 2 and got assignment: Assignment{error=0, leader='connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083-db2fb8c3-2177-43db-b575-74b5ea242ba0', leaderUrl='http://dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083/', offset=2, connectorIds=[], taskIds=[], revokedConnectorIds=[], revokedTaskIds=[], delay=0} with rebalance delay: 0 (org.apache.kafka.connect.runtime.distributed.DistributedHerder) [DistributedHerder-connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083-1]
-2025-12-24 09:06:26,917 INFO [Worker clientId=connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083, groupId=dev-connect-cluster] Starting connectors and tasks using config offset 2 (org.apache.kafka.connect.runtime.distributed.DistributedHerder) [DistributedHerder-connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083-1]
-2025-12-24 09:06:26,917 INFO [Worker clientId=connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083, groupId=dev-connect-cluster] Finished starting connectors and tasks (org.apache.kafka.connect.runtime.distributed.DistributedHerder) [DistributedHerder-connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083-1]
-2025-12-24 09:06:31,162 INFO 172.16.16.2 - - [24/Dec/2025:09:06:31 +0000] "GET /health HTTP/1.1" 200 94 "-" "kube-probe/1.31" 5 (org.apache.kafka.connect.runtime.rest.RestServer) [qtp958509062-26]
-2025-12-24 09:06:31,163 INFO 172.16.16.2 - - [24/Dec/2025:09:06:31 +0000] "GET /health HTTP/1.1" 200 94 "-" "kube-probe/1.31" 6 (org.apache.kafka.connect.runtime.rest.RestServer) [qtp958509062-23]
-2025-12-24 09:06:41,163 INFO 172.16.16.2 - - [24/Dec/2025:09:06:41 +0000] "GET /health HTTP/1.1" 200 94 "-" "kube-probe/1.31" 6 (org.apache.kafka.connect.runtime.rest.RestServer) [qtp958509062-20]
-2025-12-24 09:06:41,163 INFO 172.16.16.2 - - [24/Dec/2025:09:06:41 +0000] "GET /health HTTP/1.1" 200 94 "-" "kube-probe/1.31" 6 (org.apache.kafka.connect.runtime.rest.RestServer) [qtp958509062-25]
-2025-12-24 09:06:44,906 INFO [Worker clientId=connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083, groupId=dev-connect-cluster] Rebalance started (org.apache.kafka.connect.runtime.distributed.WorkerCoordinator) [DistributedHerder-connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083-1]
-2025-12-24 09:06:44,907 INFO [Worker clientId=connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083, groupId=dev-connect-cluster] (Re-)joining group (org.apache.kafka.connect.runtime.distributed.WorkerCoordinator) [DistributedHerder-connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083-1]
-2025-12-24 09:06:44,910 INFO [Worker clientId=connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083, groupId=dev-connect-cluster] Successfully joined group with generation Generation{generationId=12, memberId='connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083-db2fb8c3-2177-43db-b575-74b5ea242ba0', protocol='sessioned'} (org.apache.kafka.connect.runtime.distributed.WorkerCoordinator) [DistributedHerder-connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083-1]
-2025-12-24 09:06:44,927 INFO [Worker clientId=connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083, groupId=dev-connect-cluster] Successfully synced group in generation Generation{generationId=12, memberId='connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083-db2fb8c3-2177-43db-b575-74b5ea242ba0', protocol='sessioned'} (org.apache.kafka.connect.runtime.distributed.WorkerCoordinator) [DistributedHerder-connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083-1]
-2025-12-24 09:06:44,927 INFO [Worker clientId=connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083, groupId=dev-connect-cluster] Joined group at generation 12 with protocol version 2 and got assignment: Assignment{error=0, leader='connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083-db2fb8c3-2177-43db-b575-74b5ea242ba0', leaderUrl='http://dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083/', offset=2, connectorIds=[], taskIds=[], revokedConnectorIds=[], revokedTaskIds=[], delay=0} with rebalance delay: 0 (org.apache.kafka.connect.runtime.distributed.DistributedHerder) [DistributedHerder-connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083-1]
-2025-12-24 09:06:44,928 INFO [Worker clientId=connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083, groupId=dev-connect-cluster] Starting connectors and tasks using config offset 2 (org.apache.kafka.connect.runtime.distributed.DistributedHerder) [DistributedHerder-connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083-1]
-2025-12-24 09:06:44,928 INFO [Worker clientId=connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083, groupId=dev-connect-cluster] Finished starting connectors and tasks (org.apache.kafka.connect.runtime.distributed.DistributedHerder) [DistributedHerder-connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083-1]
-2025-12-24 09:06:51,161 INFO 172.16.16.2 - - [24/Dec/2025:09:06:51 +0000] "GET /health HTTP/1.1" 200 94 "-" "kube-probe/1.31" 5 (org.apache.kafka.connect.runtime.rest.RestServer) [qtp958509062-21]
-2025-12-24 09:06:51,161 INFO 172.16.16.2 - - [24/Dec/2025:09:06:51 +0000] "GET /health HTTP/1.1" 200 94 "-" "kube-probe/1.31" 5 (org.apache.kafka.connect.runtime.rest.RestServer) [qtp958509062-23]
-2025-12-24 09:07:01,161 INFO 172.16.16.2 - - [24/Dec/2025:09:07:01 +0000] "GET /health HTTP/1.1" 200 94 "-" "kube-probe/1.31" 4 (org.apache.kafka.connect.runtime.rest.RestServer) [qtp958509062-25]
-2025-12-24 09:07:01,161 INFO 172.16.16.2 - - [24/Dec/2025:09:07:01 +0000] "GET /health HTTP/1.1" 200 94 "-" "kube-probe/1.31" 4 (org.apache.kafka.connect.runtime.rest.RestServer) [qtp958509062-26]
-2025-12-24 09:07:11,163 INFO 172.16.16.2 - - [24/Dec/2025:09:07:11 +0000] "GET /health HTTP/1.1" 200 94 "-" "kube-probe/1.31" 5 (org.apache.kafka.connect.runtime.rest.RestServer) [qtp958509062-23]
-2025-12-24 09:07:11,163 INFO 172.16.16.2 - - [24/Dec/2025:09:07:11 +0000] "GET /health HTTP/1.1" 200 94 "-" "kube-probe/1.31" 5 (org.apache.kafka.connect.runtime.rest.RestServer) [qtp958509062-21]
-2025-12-24 09:07:21,163 INFO 172.16.16.2 - - [24/Dec/2025:09:07:21 +0000] "GET /health HTTP/1.1" 200 94 "-" "kube-probe/1.31" 6 (org.apache.kafka.connect.runtime.rest.RestServer) [qtp958509062-26]
-2025-12-24 09:07:21,163 INFO 172.16.16.2 - - [24/Dec/2025:09:07:21 +0000] "GET /health HTTP/1.1" 200 94 "-" "kube-probe/1.31" 6 (org.apache.kafka.connect.runtime.rest.RestServer) [qtp958509062-25]
-2025-12-24 09:07:31,161 INFO 172.16.16.2 - - [24/Dec/2025:09:07:31 +0000] "GET /health HTTP/1.1" 200 94 "-" "kube-probe/1.31" 5 (org.apache.kafka.connect.runtime.rest.RestServer) [qtp958509062-23]
-2025-12-24 09:07:31,161 INFO 172.16.16.2 - - [24/Dec/2025:09:07:31 +0000] "GET /health HTTP/1.1" 200 94 "-" "kube-probe/1.31" 5 (org.apache.kafka.connect.runtime.rest.RestServer) [qtp958509062-21]
-2025-12-24 09:07:37,386 INFO 172.16.20.158 - - [24/Dec/2025:09:07:37 +0000] "GET /connectors/neft-mq-source/config HTTP/1.1" 404 65 "-" "Java-http-client/17.0.16" 40 (org.apache.kafka.connect.runtime.rest.RestServer) [qtp958509062-25]
-2025-12-24 09:07:37,447 INFO AbstractConfig values:
- (org.apache.kafka.common.config.AbstractConfig) [pool-2-thread-1]
-2025-12-24 09:07:37,544 INFO [Worker clientId=connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083, groupId=dev-connect-cluster] Connector neft-mq-source config updated (org.apache.kafka.connect.runtime.distributed.DistributedHerder) [KafkaBasedLog Work Thread - dev-connect-cluster-configs]
-2025-12-24 09:07:37,576 INFO [Worker clientId=connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083, groupId=dev-connect-cluster] Rebalance started (org.apache.kafka.connect.runtime.distributed.WorkerCoordinator) [DistributedHerder-connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083-1]
-2025-12-24 09:07:37,576 INFO [Worker clientId=connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083, groupId=dev-connect-cluster] (Re-)joining group (org.apache.kafka.connect.runtime.distributed.WorkerCoordinator) [DistributedHerder-connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083-1]
-2025-12-24 09:07:37,580 INFO [Worker clientId=connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083, groupId=dev-connect-cluster] Successfully joined group with generation Generation{generationId=13, memberId='connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083-db2fb8c3-2177-43db-b575-74b5ea242ba0', protocol='sessioned'} (org.apache.kafka.connect.runtime.distributed.WorkerCoordinator) [DistributedHerder-connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083-1]
-2025-12-24 09:07:37,606 INFO [Worker clientId=connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083, groupId=dev-connect-cluster] Successfully synced group in generation Generation{generationId=13, memberId='connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083-db2fb8c3-2177-43db-b575-74b5ea242ba0', protocol='sessioned'} (org.apache.kafka.connect.runtime.distributed.WorkerCoordinator) [DistributedHerder-connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083-1]
-2025-12-24 09:07:37,606 INFO 172.16.20.158 - - [24/Dec/2025:09:07:37 +0000] "PUT /connectors/neft-mq-source/config HTTP/1.1" 201 592 "-" "Java-http-client/17.0.16" 218 (org.apache.kafka.connect.runtime.rest.RestServer) [qtp958509062-21]
-2025-12-24 09:07:37,606 INFO [Worker clientId=connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083, groupId=dev-connect-cluster] Joined group at generation 13 with protocol version 2 and got assignment: Assignment{error=0, leader='connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083-db2fb8c3-2177-43db-b575-74b5ea242ba0', leaderUrl='http://dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083/', offset=3, connectorIds=[neft-mq-source], taskIds=[], revokedConnectorIds=[], revokedTaskIds=[], delay=0} with rebalance delay: 0 (org.apache.kafka.connect.runtime.distributed.DistributedHerder) [DistributedHerder-connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083-1]
-2025-12-24 09:07:37,607 INFO [Worker clientId=connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083, groupId=dev-connect-cluster] Starting connectors and tasks using config offset 3 (org.apache.kafka.connect.runtime.distributed.DistributedHerder) [DistributedHerder-connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083-1]
-2025-12-24 09:07:37,615 INFO [Worker clientId=connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083, groupId=dev-connect-cluster] Starting connector neft-mq-source (org.apache.kafka.connect.runtime.distributed.DistributedHerder) [StartAndStopExecutor-connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083-1]
-2025-12-24 09:07:37,622 INFO [neft-mq-source|worker] Creating connector neft-mq-source of type com.ibm.eventstreams.connect.mqsource.MQSourceConnector (org.apache.kafka.connect.runtime.Worker) [StartAndStopExecutor-connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083-1]
-2025-12-24 09:07:37,622 INFO 172.16.20.158 - - [24/Dec/2025:09:07:37 +0000] "GET /connectors/neft-mq-source/status HTTP/1.1" 404 75 "-" "Java-http-client/17.0.16" 7 (org.apache.kafka.connect.runtime.rest.RestServer) [qtp958509062-25]
-2025-12-24 09:07:37,623 INFO [neft-mq-source|worker] SourceConnectorConfig values:
-        config.action.reload = restart
-        connector.class = com.ibm.eventstreams.connect.mqsource.MQSourceConnector
-        errors.log.enable = false
-        errors.log.include.messages = false
-        errors.retry.delay.max.ms = 60000
-        errors.retry.timeout = 0
-        errors.tolerance = none
-        exactly.once.support = requested
-        header.converter = null
-        key.converter = null
-        name = neft-mq-source
-        offsets.storage.topic = null
-        predicates = []
-        tasks.max = 1
-        tasks.max.enforce = true
-        topic.creation.groups = []
-        transaction.boundary = poll
-        transaction.boundary.interval.ms = null
-        transforms = []
-        value.converter = class org.apache.kafka.connect.converters.ByteArrayConverter
- (org.apache.kafka.connect.runtime.SourceConnectorConfig) [StartAndStopExecutor-connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083-1]
-2025-12-24 09:07:37,624 INFO [neft-mq-source|worker] EnrichedConnectorConfig values:
-        config.action.reload = restart
-        connector.class = com.ibm.eventstreams.connect.mqsource.MQSourceConnector
-        errors.log.enable = false
-        errors.log.include.messages = false
-        errors.retry.delay.max.ms = 60000
-        errors.retry.timeout = 0
-        errors.tolerance = none
-        exactly.once.support = requested
-        header.converter = null
-        key.converter = null
-        name = neft-mq-source
-        offsets.storage.topic = null
-        predicates = []
-        tasks.max = 1
-        tasks.max.enforce = true
-        topic.creation.groups = []
-        transaction.boundary = poll
-        transaction.boundary.interval.ms = null
-        transforms = []
-        value.converter = class org.apache.kafka.connect.converters.ByteArrayConverter
- (org.apache.kafka.connect.runtime.ConnectorConfig$EnrichedConnectorConfig) [StartAndStopExecutor-connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083-1]
-2025-12-24 09:07:37,637 INFO [neft-mq-source|worker] Instantiated connector neft-mq-source with version 2.6.0 of type class com.ibm.eventstreams.connect.mqsource.MQSourceConnector (org.apache.kafka.connect.runtime.Worker) [StartAndStopExecutor-connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083-1]
-2025-12-24 09:07:37,638 INFO [neft-mq-source|worker] Finished creating connector neft-mq-source (org.apache.kafka.connect.runtime.Worker) [StartAndStopExecutor-connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083-1]
-2025-12-24 09:07:37,639 INFO [Worker clientId=connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083, groupId=dev-connect-cluster] Finished starting connectors and tasks (org.apache.kafka.connect.runtime.distributed.DistributedHerder) [DistributedHerder-connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083-1]
-2025-12-24 09:07:37,670 INFO SourceConnectorConfig values:
-        config.action.reload = restart
-        connector.class = com.ibm.eventstreams.connect.mqsource.MQSourceConnector
-        errors.log.enable = false
-        errors.log.include.messages = false
-        errors.retry.delay.max.ms = 60000
-        errors.retry.timeout = 0
-        errors.tolerance = none
-        exactly.once.support = requested
-        header.converter = null
-        key.converter = null
-        name = neft-mq-source
-        offsets.storage.topic = null
-        predicates = []
-        tasks.max = 1
-        tasks.max.enforce = true
-        topic.creation.groups = []
-        transaction.boundary = poll
-        transaction.boundary.interval.ms = null
-        transforms = []
-        value.converter = class org.apache.kafka.connect.converters.ByteArrayConverter
- (org.apache.kafka.connect.runtime.SourceConnectorConfig) [DistributedHerder-connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083-1]
-2025-12-24 09:07:37,671 INFO EnrichedConnectorConfig values:
-        config.action.reload = restart
-        connector.class = com.ibm.eventstreams.connect.mqsource.MQSourceConnector
-        errors.log.enable = false
-        errors.log.include.messages = false
-        errors.retry.delay.max.ms = 60000
-        errors.retry.timeout = 0
-        errors.tolerance = none
-        exactly.once.support = requested
-        header.converter = null
-        key.converter = null
-        name = neft-mq-source
-        offsets.storage.topic = null
-        predicates = []
-        tasks.max = 1
-        tasks.max.enforce = true
-        topic.creation.groups = []
-        transaction.boundary = poll
-        transaction.boundary.interval.ms = null
-        transforms = []
-        value.converter = class org.apache.kafka.connect.converters.ByteArrayConverter
- (org.apache.kafka.connect.runtime.ConnectorConfig$EnrichedConnectorConfig) [DistributedHerder-connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083-1]
-2025-12-24 09:07:37,741 INFO [Worker clientId=connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083, groupId=dev-connect-cluster] Tasks [neft-mq-source-0] configs updated (org.apache.kafka.connect.runtime.distributed.DistributedHerder) [KafkaBasedLog Work Thread - dev-connect-cluster-configs]
-2025-12-24 09:07:37,754 INFO [Worker clientId=connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083, groupId=dev-connect-cluster] Rebalance started (org.apache.kafka.connect.runtime.distributed.WorkerCoordinator) [DistributedHerder-connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083-1]
-2025-12-24 09:07:37,755 INFO [Worker clientId=connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083, groupId=dev-connect-cluster] (Re-)joining group (org.apache.kafka.connect.runtime.distributed.WorkerCoordinator) [DistributedHerder-connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083-1]
-2025-12-24 09:07:37,758 INFO [Worker clientId=connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083, groupId=dev-connect-cluster] Successfully joined group with generation Generation{generationId=14, memberId='connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083-db2fb8c3-2177-43db-b575-74b5ea242ba0', protocol='sessioned'} (org.apache.kafka.connect.runtime.distributed.WorkerCoordinator) [DistributedHerder-connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083-1]
-2025-12-24 09:07:37,780 INFO [Worker clientId=connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083, groupId=dev-connect-cluster] Successfully synced group in generation Generation{generationId=14, memberId='connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083-db2fb8c3-2177-43db-b575-74b5ea242ba0', protocol='sessioned'} (org.apache.kafka.connect.runtime.distributed.WorkerCoordinator) [DistributedHerder-connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083-1]
-2025-12-24 09:07:37,781 INFO [Worker clientId=connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083, groupId=dev-connect-cluster] Joined group at generation 14 with protocol version 2 and got assignment: Assignment{error=0, leader='connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083-db2fb8c3-2177-43db-b575-74b5ea242ba0', leaderUrl='http://dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083/', offset=5, connectorIds=[neft-mq-source], taskIds=[neft-mq-source-0], revokedConnectorIds=[], revokedTaskIds=[], delay=0} with rebalance delay: 0 (org.apache.kafka.connect.runtime.distributed.DistributedHerder) [DistributedHerder-connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083-1]
-2025-12-24 09:07:37,783 INFO [Worker clientId=connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083, groupId=dev-connect-cluster] Starting connectors and tasks using config offset 5 (org.apache.kafka.connect.runtime.distributed.DistributedHerder) [DistributedHerder-connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083-1]
-2025-12-24 09:07:37,785 INFO [Worker clientId=connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083, groupId=dev-connect-cluster] Starting task neft-mq-source-0 (org.apache.kafka.connect.runtime.distributed.DistributedHerder) [StartAndStopExecutor-connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083-2]
-2025-12-24 09:07:37,793 INFO [neft-mq-source|task-0] Creating task neft-mq-source-0 (org.apache.kafka.connect.runtime.Worker) [StartAndStopExecutor-connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083-2]
-2025-12-24 09:07:37,798 INFO [neft-mq-source|task-0] ConnectorConfig values:
-        config.action.reload = restart
-        connector.class = com.ibm.eventstreams.connect.mqsource.MQSourceConnector
-        errors.log.enable = false
-        errors.log.include.messages = false
-        errors.retry.delay.max.ms = 60000
-        errors.retry.timeout = 0
-        errors.tolerance = none
-        header.converter = null
-        key.converter = null
-        name = neft-mq-source
-        predicates = []
-        tasks.max = 1
-        tasks.max.enforce = true
-        transforms = []
-        value.converter = class org.apache.kafka.connect.converters.ByteArrayConverter
- (org.apache.kafka.connect.runtime.ConnectorConfig) [StartAndStopExecutor-connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083-2]
-2025-12-24 09:07:37,800 INFO [neft-mq-source|task-0] EnrichedConnectorConfig values:
-        config.action.reload = restart
-        connector.class = com.ibm.eventstreams.connect.mqsource.MQSourceConnector
-        errors.log.enable = false
-        errors.log.include.messages = false
-        errors.retry.delay.max.ms = 60000
-        errors.retry.timeout = 0
-        errors.tolerance = none
-        header.converter = null
-        key.converter = null
-        name = neft-mq-source
-        predicates = []
-        tasks.max = 1
-        tasks.max.enforce = true
-        transforms = []
-        value.converter = class org.apache.kafka.connect.converters.ByteArrayConverter
- (org.apache.kafka.connect.runtime.ConnectorConfig$EnrichedConnectorConfig) [StartAndStopExecutor-connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083-2]
-2025-12-24 09:07:37,804 INFO [neft-mq-source|task-0] TaskConfig values:
-        task.class = class com.ibm.eventstreams.connect.mqsource.MQSourceTask
- (org.apache.kafka.connect.runtime.TaskConfig) [StartAndStopExecutor-connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083-2]
-2025-12-24 09:07:37,805 INFO [neft-mq-source|task-0] Instantiated task neft-mq-source-0 with version 2.6.0 of type com.ibm.eventstreams.connect.mqsource.MQSourceTask (org.apache.kafka.connect.runtime.Worker) [StartAndStopExecutor-connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083-2]
-2025-12-24 09:07:37,806 INFO [neft-mq-source|task-0] StringConverterConfig values:
-        converter.encoding = UTF-8
-        converter.type = key
- (org.apache.kafka.connect.storage.StringConverterConfig) [StartAndStopExecutor-connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083-2]
-2025-12-24 09:07:37,807 INFO [neft-mq-source|task-0] Set up the key converter class org.apache.kafka.connect.storage.StringConverter for task neft-mq-source-0 using the worker config (org.apache.kafka.connect.runtime.Worker) [StartAndStopExecutor-connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083-2]
-2025-12-24 09:07:37,807 INFO [neft-mq-source|task-0] Set up the value converter class org.apache.kafka.connect.converters.ByteArrayConverter for task neft-mq-source-0 using the connector config (org.apache.kafka.connect.runtime.Worker) [StartAndStopExecutor-connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083-2]
-2025-12-24 09:07:37,807 INFO [neft-mq-source|task-0] Set up the header converter class org.apache.kafka.connect.storage.SimpleHeaderConverter for task neft-mq-source-0 using the worker config (org.apache.kafka.connect.runtime.Worker) [StartAndStopExecutor-connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083-2]
-2025-12-24 09:07:37,813 INFO [neft-mq-source|task-0] Initializing: org.apache.kafka.connect.runtime.TransformationChain{} (org.apache.kafka.connect.runtime.Worker) [StartAndStopExecutor-connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083-2]
-2025-12-24 09:07:37,814 INFO [neft-mq-source|task-0] SourceConnectorConfig values:
-        config.action.reload = restart
-        connector.class = com.ibm.eventstreams.connect.mqsource.MQSourceConnector
-        errors.log.enable = false
-        errors.log.include.messages = false
-        errors.retry.delay.max.ms = 60000
-        errors.retry.timeout = 0
-        errors.tolerance = none
-        exactly.once.support = requested
-        header.converter = null
-        key.converter = null
-        name = neft-mq-source
-        offsets.storage.topic = null
-        predicates = []
-        tasks.max = 1
-        tasks.max.enforce = true
-        topic.creation.groups = []
-        transaction.boundary = poll
-        transaction.boundary.interval.ms = null
-        transforms = []
-        value.converter = class org.apache.kafka.connect.converters.ByteArrayConverter
- (org.apache.kafka.connect.runtime.SourceConnectorConfig) [StartAndStopExecutor-connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083-2]
-2025-12-24 09:07:37,815 INFO [neft-mq-source|task-0] EnrichedConnectorConfig values:
-        config.action.reload = restart
-        connector.class = com.ibm.eventstreams.connect.mqsource.MQSourceConnector
-        errors.log.enable = false
-        errors.log.include.messages = false
-        errors.retry.delay.max.ms = 60000
-        errors.retry.timeout = 0
-        errors.tolerance = none
-        exactly.once.support = requested
-        header.converter = null
-        key.converter = null
-        name = neft-mq-source
-        offsets.storage.topic = null
-        predicates = []
-        tasks.max = 1
-        tasks.max.enforce = true
-        topic.creation.groups = []
-        transaction.boundary = poll
-        transaction.boundary.interval.ms = null
-        transforms = []
-        value.converter = class org.apache.kafka.connect.converters.ByteArrayConverter
- (org.apache.kafka.connect.runtime.ConnectorConfig$EnrichedConnectorConfig) [StartAndStopExecutor-connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083-2]
-2025-12-24 09:07:37,816 INFO [neft-mq-source|task-0] ProducerConfig values:
-        acks = -1
-        auto.include.jmx.reporter = true
-        batch.size = 16384
-        bootstrap.servers = [dev-kafka-cluster-kafka-bootstrap.dev-kafka.svc.cluster.local:9093]
-        buffer.memory = 33554432
-        client.dns.lookup = use_all_dns_ips
-        client.id = connector-producer-neft-mq-source-0
-        compression.gzip.level = -1
-        compression.lz4.level = 9
-        compression.type = none
-        compression.zstd.level = 3
-        connections.max.idle.ms = 540000
-        delivery.timeout.ms = 2147483647
-        enable.idempotence = false
-        enable.metrics.push = true
-        interceptor.classes = []
-        key.serializer = class org.apache.kafka.common.serialization.ByteArraySerializer
-        linger.ms = 0
-        max.block.ms = 9223372036854775807
-        max.in.flight.requests.per.connection = 1
-        max.request.size = 1048576
-        metadata.max.age.ms = 300000
-        metadata.max.idle.ms = 300000
-        metadata.recovery.strategy = none
-        metric.reporters = []
-        metrics.num.samples = 2
-        metrics.recording.level = INFO
-        metrics.sample.window.ms = 30000
-        partitioner.adaptive.partitioning.enable = true
-        partitioner.availability.timeout.ms = 0
-        partitioner.class = null
-        partitioner.ignore.keys = false
-        receive.buffer.bytes = 32768
-        reconnect.backoff.max.ms = 1000
-        reconnect.backoff.ms = 50
-        request.timeout.ms = 30000
-        retries = 2147483647
-        retry.backoff.max.ms = 1000
-        retry.backoff.ms = 100
-        sasl.client.callback.handler.class = null
-        sasl.jaas.config = null
-        sasl.kerberos.kinit.cmd = /usr/bin/kinit
-        sasl.kerberos.min.time.before.relogin = 60000
-        sasl.kerberos.service.name = null
-        sasl.kerberos.ticket.renew.jitter = 0.05
-        sasl.kerberos.ticket.renew.window.factor = 0.8
-        sasl.login.callback.handler.class = null
-        sasl.login.class = null
-        sasl.login.connect.timeout.ms = null
-        sasl.login.read.timeout.ms = null
-        sasl.login.refresh.buffer.seconds = 300
-        sasl.login.refresh.min.period.seconds = 60
-        sasl.login.refresh.window.factor = 0.8
-        sasl.login.refresh.window.jitter = 0.05
-        sasl.login.retry.backoff.max.ms = 10000
-        sasl.login.retry.backoff.ms = 100
-        sasl.mechanism = GSSAPI
-        sasl.oauthbearer.clock.skew.seconds = 30
-        sasl.oauthbearer.expected.audience = null
-        sasl.oauthbearer.expected.issuer = null
-        sasl.oauthbearer.header.urlencode = false
-        sasl.oauthbearer.jwks.endpoint.refresh.ms = 3600000
-        sasl.oauthbearer.jwks.endpoint.retry.backoff.max.ms = 10000
-        sasl.oauthbearer.jwks.endpoint.retry.backoff.ms = 100
-        sasl.oauthbearer.jwks.endpoint.url = null
-        sasl.oauthbearer.scope.claim.name = scope
-        sasl.oauthbearer.sub.claim.name = sub
-        sasl.oauthbearer.token.endpoint.url = null
-        security.protocol = SSL
-        security.providers = null
-        send.buffer.bytes = 131072
-        socket.connection.setup.timeout.max.ms = 30000
-        socket.connection.setup.timeout.ms = 10000
-        ssl.cipher.suites = null
-        ssl.enabled.protocols = [TLSv1.2, TLSv1.3]
-        ssl.endpoint.identification.algorithm = https
-        ssl.engine.factory.class = null
-        ssl.key.password = null
-        ssl.keymanager.algorithm = SunX509
-        ssl.keystore.certificate.chain = null
-        ssl.keystore.key = null
-        ssl.keystore.location = null
-        ssl.keystore.password = null
-        ssl.keystore.type = JKS
-        ssl.protocol = TLSv1.3
-        ssl.provider = null
-        ssl.secure.random.implementation = null
-        ssl.trustmanager.algorithm = PKIX
-        ssl.truststore.certificates = null
-        ssl.truststore.location = /tmp/kafka/cluster.truststore.p12
-        ssl.truststore.password = [hidden]
-        ssl.truststore.type = JKS
-        transaction.timeout.ms = 60000
-        transactional.id = null
-        value.serializer = class org.apache.kafka.common.serialization.ByteArraySerializer
- (org.apache.kafka.clients.producer.ProducerConfig) [StartAndStopExecutor-connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083-2]
-2025-12-24 09:07:37,817 INFO [neft-mq-source|task-0] initializing Kafka metrics collector (org.apache.kafka.common.telemetry.internals.KafkaMetricsCollector) [StartAndStopExecutor-connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083-2]
-2025-12-24 09:07:37,854 INFO 172.16.20.158 - - [24/Dec/2025:09:07:37 +0000] "GET /connectors/neft-mq-source/status HTTP/1.1" 200 187 "-" "Java-http-client/17.0.16" 13 (org.apache.kafka.connect.runtime.rest.RestServer) [qtp958509062-21]
-2025-12-24 09:07:37,878 INFO [neft-mq-source|task-0] These configurations '[metrics.context.connect.group.id, metrics.context.connect.kafka.cluster.id]' were supplied but are not used yet. (org.apache.kafka.clients.producer.ProducerConfig) [StartAndStopExecutor-connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083-2]
-2025-12-24 09:07:37,878 INFO [neft-mq-source|task-0] Kafka version: 3.9.0 (org.apache.kafka.common.utils.AppInfoParser) [StartAndStopExecutor-connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083-2]
-2025-12-24 09:07:37,879 INFO [neft-mq-source|task-0] Kafka commitId: a60e31147e6b01ee (org.apache.kafka.common.utils.AppInfoParser) [StartAndStopExecutor-connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083-2]
-2025-12-24 09:07:37,879 INFO [neft-mq-source|task-0] Kafka startTimeMs: 1766567257878 (org.apache.kafka.common.utils.AppInfoParser) [StartAndStopExecutor-connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083-2]
-2025-12-24 09:07:37,900 INFO [Worker clientId=connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083, groupId=dev-connect-cluster] Finished starting connectors and tasks (org.apache.kafka.connect.runtime.distributed.DistributedHerder) [DistributedHerder-connect-dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083-1]
-2025-12-24 09:07:37,902 INFO [neft-mq-source|task-0] AbstractConfig values:
-        errors.deadletterqueue.context.headers.enable = false
-        errors.deadletterqueue.topic.name =
-        mq.batch.size = 250
-        mq.ccdt.url = null
-        mq.channel.name = IPH.TO.SBIEPAY
-        mq.client.reconnect.options = ASDEF
-        mq.connection.mode = client
-        mq.connection.name.list = 10.176.10.213(2001)
-        mq.exactly.once.state.queue = null
-        mq.jms.properties.copy.to.kafka.headers = false
-        mq.max.poll.blocked.time.ms = 2000
-        mq.message.body.jms = false
-        mq.message.mqmd.read = false
-        mq.message.receive.timeout = 2000
-        mq.password = null
-        mq.queue = SBI_NEFT_INWARD
-        mq.queue.manager = SBI_NEFT
-        mq.receive.max.poll.time.ms = 0
-        mq.receive.subsequent.timeout.ms = 0
-        mq.reconnect.delay.max.ms = 8192
-        mq.reconnect.delay.min.ms = 64
-        mq.record.builder = com.ibm.eventstreams.connect.mqsource.builders.DefaultRecordBuilder
-        mq.record.builder.key.header = null
-        mq.ssl.cipher.suite = null
-        mq.ssl.keystore.location = null
-        mq.ssl.keystore.password = null
-        mq.ssl.peer.name = null
-        mq.ssl.truststore.location = null
-        mq.ssl.truststore.password = null
-        mq.ssl.use.ibm.cipher.mappings = true
-        mq.user.authentication.mqcsp = true
-        mq.user.name = null
-        topic = neft.raw.kafka.topic
- (org.apache.kafka.common.config.AbstractConfig) [task-thread-neft-mq-source-0]
-2025-12-24 09:07:37,916 INFO [neft-mq-source|task-0] [Producer clientId=connector-producer-neft-mq-source-0] Cluster ID: 3aEx1xmUSTWs8xSplBnYtA (org.apache.kafka.clients.Metadata) [kafka-producer-network-thread | connector-producer-neft-mq-source-0]
-2025-12-24 09:07:38,249 INFO [neft-mq-source|task-0] Building records using com.ibm.eventstreams.connect.mqsource.builders.DefaultRecordBuilder (com.ibm.eventstreams.connect.mqsource.builders.DefaultRecordBuilder) [task-thread-neft-mq-source-0]
-2025-12-24 09:07:38,537 ERROR [neft-mq-source|task-0] MQ Connection Exception:  (com.ibm.eventstreams.connect.mqsource.MQSourceTask) [task-thread-neft-mq-source-0]
-com.ibm.msg.client.jms.DetailedJMSRuntimeException: JMSWMQ0018: Failed to connect to queue manager 'SBI_NEFT' with connection mode 'Client' and host name '10.176.10.213(2001)'.
-Check the queue manager is started and if running in client mode, check there is a listener running. Please see the linked exception for more information.
-        at com.ibm.msg.client.jms.DetailedJMSException.getUnchecked(DetailedJMSException.java:268)
-        at com.ibm.msg.client.jms.internal.JmsErrorUtils.convertJMSException(JmsErrorUtils.java:173)
-        at com.ibm.msg.client.jms.admin.JmsConnectionFactoryImpl.createContext(JmsConnectionFactoryImpl.java:577)
-        at com.ibm.eventstreams.connect.mqsource.JMSWorker.connect(JMSWorker.java:216)
-        at com.ibm.eventstreams.connect.mqsource.MQSourceTask.start(MQSourceTask.java:184)
-        at com.ibm.eventstreams.connect.mqsource.MQSourceTask.start(MQSourceTask.java:158)
-        at org.apache.kafka.connect.runtime.AbstractWorkerSourceTask.initializeAndStart(AbstractWorkerSourceTask.java:279)
-        at org.apache.kafka.connect.runtime.WorkerTask.doStart(WorkerTask.java:176)
-        at org.apache.kafka.connect.runtime.WorkerTask.doRun(WorkerTask.java:225)
-        at org.apache.kafka.connect.runtime.WorkerTask.run(WorkerTask.java:281)
-        at org.apache.kafka.connect.runtime.AbstractWorkerSourceTask.run(AbstractWorkerSourceTask.java:79)
-        at org.apache.kafka.connect.runtime.isolation.Plugins.lambda$withClassLoader$1(Plugins.java:238)
-        at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:539)
-        at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
-        at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
-        at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
-        at java.base/java.lang.Thread.run(Thread.java:840)
-Caused by: com.ibm.mq.MQException: JMSCMQ0001: IBM MQ call failed with compcode '2' ('MQCC_FAILED') reason '2540' ('MQRC_UNKNOWN_CHANNEL_NAME').
-        at com.ibm.msg.client.wmq.common.internal.Reason.createException(Reason.java:217)
-        at com.ibm.msg.client.wmq.internal.WMQConnection.<init>(WMQConnection.java:506)
-        at com.ibm.msg.client.wmq.factories.WMQConnectionFactory.createV7ProviderConnection(WMQConnectionFactory.java:9351)
-        at com.ibm.msg.client.wmq.factories.WMQConnectionFactory.createProviderConnection(WMQConnectionFactory.java:8581)
-        at com.ibm.msg.client.jms.admin.JmsConnectionFactoryImpl._createConnection(JmsConnectionFactoryImpl.java:322)
-        at com.ibm.msg.client.jms.admin.JmsConnectionFactoryImpl.createContext(JmsConnectionFactoryImpl.java:543)
-        ... 14 more
-Caused by: com.ibm.mq.jmqi.JmqiException: CC=2;RC=2540;AMQ9204: Connection to host '10.176.10.213(2001)' rejected. [1=com.ibm.mq.jmqi.JmqiException[CC=2;RC=2540;AMQ9520: Channel not defined remotely. [3=IPH.TO.SBIEPAY]],3=10.176.10.213(2001),4=,5=RemoteConnection.analyseErrorSegment]
-        at com.ibm.mq.jmqi.remote.api.RemoteFAP$Connector.jmqiConnect(RemoteFAP.java:13911)
-        at com.ibm.mq.jmqi.remote.api.RemoteFAP$Connector.access$200(RemoteFAP.java:13340)
-        at com.ibm.mq.jmqi.remote.api.RemoteFAP.jmqiConnect(RemoteFAP.java:1544)
-        at com.ibm.mq.jmqi.remote.api.RemoteFAP.jmqiConnect(RemoteFAP.java:1413)
-        at com.ibm.mq.ese.jmqi.InterceptedJmqiImpl.jmqiConnect(InterceptedJmqiImpl.java:377)
-        at com.ibm.mq.ese.jmqi.ESEJMQI.jmqiConnect(ESEJMQI.java:562)
-        at com.ibm.msg.client.wmq.internal.WMQConnection.<init>(WMQConnection.java:438)
-        ... 18 more
-Caused by: com.ibm.mq.jmqi.JmqiException: CC=2;RC=2540;AMQ9520: Channel not defined remotely. [3=IPH.TO.SBIEPAY]
-        at com.ibm.mq.jmqi.remote.impl.RemoteConnection.analyseErrorSegment(RemoteConnection.java:4852)
-        at com.ibm.mq.jmqi.remote.impl.RemoteConnection.receiveTSH(RemoteConnection.java:3549)
-        at com.ibm.mq.jmqi.remote.impl.RemoteConnection.initSess(RemoteConnection.java:1421)
-        at com.ibm.mq.jmqi.remote.impl.RemoteConnection.connect(RemoteConnection.java:1009)
-        at com.ibm.mq.jmqi.remote.impl.RemoteConnectionSpecification.getNewConnection(RemoteConnectionSpecification.java:691)
-        at com.ibm.mq.jmqi.remote.impl.RemoteConnectionSpecification.getSessionFromNewConnection(RemoteConnectionSpecification.java:283)
-        at com.ibm.mq.jmqi.remote.impl.RemoteConnectionSpecification.getSession(RemoteConnectionSpecification.java:170)
-        at com.ibm.mq.jmqi.remote.impl.RemoteConnectionPool.getSession(RemoteConnectionPool.java:128)
-        at com.ibm.mq.jmqi.remote.api.RemoteFAP$Connector.jmqiConnect(RemoteFAP.java:13575)
-        ... 24 more
-2025-12-24 09:07:38,546 ERROR [neft-mq-source|task-0] WorkerSourceTask{id=neft-mq-source-0} Task threw an uncaught and unrecoverable exception. Task is being killed and will not recover until manually restarted (org.apache.kafka.connect.runtime.WorkerTask) [task-thread-neft-mq-source-0]
-org.apache.kafka.connect.errors.ConnectException: com.ibm.msg.client.jms.DetailedJMSRuntimeException: JMSWMQ0018: Failed to connect to queue manager 'SBI_NEFT' with connection mode 'Client' and host name '10.176.10.213(2001)'.
-Check the queue manager is started and if running in client mode, check there is a listener running. Please see the linked exception for more information.
-        at com.ibm.eventstreams.connect.mqsource.MQSourceTask.start(MQSourceTask.java:207)
-        at com.ibm.eventstreams.connect.mqsource.MQSourceTask.start(MQSourceTask.java:158)
-        at org.apache.kafka.connect.runtime.AbstractWorkerSourceTask.initializeAndStart(AbstractWorkerSourceTask.java:279)
-        at org.apache.kafka.connect.runtime.WorkerTask.doStart(WorkerTask.java:176)
-        at org.apache.kafka.connect.runtime.WorkerTask.doRun(WorkerTask.java:225)
-        at org.apache.kafka.connect.runtime.WorkerTask.run(WorkerTask.java:281)
-        at org.apache.kafka.connect.runtime.AbstractWorkerSourceTask.run(AbstractWorkerSourceTask.java:79)
-        at org.apache.kafka.connect.runtime.isolation.Plugins.lambda$withClassLoader$1(Plugins.java:238)
-        at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:539)
-        at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
-        at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
-        at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
-        at java.base/java.lang.Thread.run(Thread.java:840)
-Caused by: com.ibm.msg.client.jms.DetailedJMSRuntimeException: JMSWMQ0018: Failed to connect to queue manager 'SBI_NEFT' with connection mode 'Client' and host name '10.176.10.213(2001)'.
-Check the queue manager is started and if running in client mode, check there is a listener running. Please see the linked exception for more information.
-        at com.ibm.msg.client.jms.DetailedJMSException.getUnchecked(DetailedJMSException.java:268)
-        at com.ibm.msg.client.jms.internal.JmsErrorUtils.convertJMSException(JmsErrorUtils.java:173)
-        at com.ibm.msg.client.jms.admin.JmsConnectionFactoryImpl.createContext(JmsConnectionFactoryImpl.java:577)
-        at com.ibm.eventstreams.connect.mqsource.JMSWorker.connect(JMSWorker.java:216)
-        at com.ibm.eventstreams.connect.mqsource.MQSourceTask.start(MQSourceTask.java:184)
-        ... 12 more
-Caused by: com.ibm.mq.MQException: JMSCMQ0001: IBM MQ call failed with compcode '2' ('MQCC_FAILED') reason '2540' ('MQRC_UNKNOWN_CHANNEL_NAME').
-        at com.ibm.msg.client.wmq.common.internal.Reason.createException(Reason.java:217)
-        at com.ibm.msg.client.wmq.internal.WMQConnection.<init>(WMQConnection.java:506)
-        at com.ibm.msg.client.wmq.factories.WMQConnectionFactory.createV7ProviderConnection(WMQConnectionFactory.java:9351)
-        at com.ibm.msg.client.wmq.factories.WMQConnectionFactory.createProviderConnection(WMQConnectionFactory.java:8581)
-        at com.ibm.msg.client.jms.admin.JmsConnectionFactoryImpl._createConnection(JmsConnectionFactoryImpl.java:322)
-        at com.ibm.msg.client.jms.admin.JmsConnectionFactoryImpl.createContext(JmsConnectionFactoryImpl.java:543)
-        ... 14 more
-Caused by: com.ibm.mq.jmqi.JmqiException: CC=2;RC=2540;AMQ9204: Connection to host '10.176.10.213(2001)' rejected. [1=com.ibm.mq.jmqi.JmqiException[CC=2;RC=2540;AMQ9520: Channel not defined remotely. [3=IPH.TO.SBIEPAY]],3=10.176.10.213(2001),4=,5=RemoteConnection.analyseErrorSegment]
-        at com.ibm.mq.jmqi.remote.api.RemoteFAP$Connector.jmqiConnect(RemoteFAP.java:13911)
-        at com.ibm.mq.jmqi.remote.api.RemoteFAP$Connector.access$200(RemoteFAP.java:13340)
-        at com.ibm.mq.jmqi.remote.api.RemoteFAP.jmqiConnect(RemoteFAP.java:1544)
-        at com.ibm.mq.jmqi.remote.api.RemoteFAP.jmqiConnect(RemoteFAP.java:1413)
-        at com.ibm.mq.ese.jmqi.InterceptedJmqiImpl.jmqiConnect(InterceptedJmqiImpl.java:377)
-        at com.ibm.mq.ese.jmqi.ESEJMQI.jmqiConnect(ESEJMQI.java:562)
-        at com.ibm.msg.client.wmq.internal.WMQConnection.<init>(WMQConnection.java:438)
-        ... 18 more
-Caused by: com.ibm.mq.jmqi.JmqiException: CC=2;RC=2540;AMQ9520: Channel not defined remotely. [3=IPH.TO.SBIEPAY]
-        at com.ibm.mq.jmqi.remote.impl.RemoteConnection.analyseErrorSegment(RemoteConnection.java:4852)
-        at com.ibm.mq.jmqi.remote.impl.RemoteConnection.receiveTSH(RemoteConnection.java:3549)
-        at com.ibm.mq.jmqi.remote.impl.RemoteConnection.initSess(RemoteConnection.java:1421)
-        at com.ibm.mq.jmqi.remote.impl.RemoteConnection.connect(RemoteConnection.java:1009)
-        at com.ibm.mq.jmqi.remote.impl.RemoteConnectionSpecification.getNewConnection(RemoteConnectionSpecification.java:691)
-        at com.ibm.mq.jmqi.remote.impl.RemoteConnectionSpecification.getSessionFromNewConnection(RemoteConnectionSpecification.java:283)
-        at com.ibm.mq.jmqi.remote.impl.RemoteConnectionSpecification.getSession(RemoteConnectionSpecification.java:170)
-        at com.ibm.mq.jmqi.remote.impl.RemoteConnectionPool.getSession(RemoteConnectionPool.java:128)
-        at com.ibm.mq.jmqi.remote.api.RemoteFAP$Connector.jmqiConnect(RemoteFAP.java:13575)
-        ... 24 more
-2025-12-24 09:07:38,550 INFO [neft-mq-source|task-0] [Producer clientId=connector-producer-neft-mq-source-0] Closing the Kafka producer with timeoutMillis = 30000 ms. (org.apache.kafka.clients.producer.KafkaProducer) [task-thread-neft-mq-source-0]
-2025-12-24 09:07:38,558 INFO [neft-mq-source|task-0] Metrics scheduler closed (org.apache.kafka.common.metrics.Metrics) [task-thread-neft-mq-source-0]
-2025-12-24 09:07:38,559 INFO [neft-mq-source|task-0] Closing reporter org.apache.kafka.common.metrics.JmxReporter (org.apache.kafka.common.metrics.Metrics) [task-thread-neft-mq-source-0]
-2025-12-24 09:07:38,559 INFO [neft-mq-source|task-0] Closing reporter org.apache.kafka.common.telemetry.internals.ClientTelemetryReporter (org.apache.kafka.common.metrics.Metrics) [task-thread-neft-mq-source-0]
-2025-12-24 09:07:38,559 INFO [neft-mq-source|task-0] Metrics reporters closed (org.apache.kafka.common.metrics.Metrics) [task-thread-neft-mq-source-0]
-2025-12-24 09:07:38,561 INFO [neft-mq-source|task-0] App info kafka.producer for connector-producer-neft-mq-source-0 unregistered (org.apache.kafka.common.utils.AppInfoParser) [task-thread-neft-mq-source-0]
-2025-12-24 09:07:38,606 INFO 172.16.20.158 - - [24/Dec/2025:09:07:38 +0000] "GET /admin/loggers/ HTTP/1.1" 200 103 "-" "Java-http-client/17.0.16" 15 (org.apache.kafka.connect.runtime.rest.RestServer) [qtp958509062-26]
-2025-12-24 09:07:38,647 INFO 172.16.20.158 - - [24/Dec/2025:09:07:38 +0000] "GET /connectors/neft-mq-source/config HTTP/1.1" 200 530 "-" "Java-http-client/17.0.16" 10 (org.apache.kafka.connect.runtime.rest.RestServer) [qtp958509062-25]
-2025-12-24 09:07:38,669 INFO 172.16.20.158 - - [24/Dec/2025:09:07:38 +0000] "GET /connectors/neft-mq-source/status HTTP/1.1" 200 5360 "-" "Java-http-client/17.0.16" 10 (org.apache.kafka.connect.runtime.rest.RestServer) [qtp958509062-26]
-2025-12-24 09:07:41,162 INFO 172.16.16.2 - - [24/Dec/2025:09:07:41 +0000] "GET /health HTTP/1.1" 200 94 "-" "kube-probe/1.31" 5 (org.apache.kafka.connect.runtime.rest.RestServer) [qtp958509062-21]
-2025-12-24 09:07:41,162 INFO 172.16.16.2 - - [24/Dec/2025:09:07:41 +0000] "GET /health HTTP/1.1" 200 94 "-" "kube-probe/1.31" 5 (org.apache.kafka.connect.runtime.rest.RestServer) [qtp958509062-26]
-2025-12-24 09:07:51,160 INFO 172.16.16.2 - - [24/Dec/2025:09:07:51 +0000] "GET /health HTTP/1.1" 200 94 "-" "kube-probe/1.31" 4 (org.apache.kafka.connect.runtime.rest.RestServer) [qtp958509062-21]
-2025-12-24 09:07:51,160 INFO 172.16.16.2 - - [24/Dec/2025:09:07:51 +0000] "GET /health HTTP/1.1" 200 94 "-" "kube-probe/1.31" 4 (org.apache.kafka.connect.runtime.rest.RestServer) [qtp958509062-23]
-2025-12-24 09:07:54,262 INFO 172.16.20.158 - - [24/Dec/2025:09:07:54 +0000] "GET /connectors/neft-mq-source/config HTTP/1.1" 200 530 "-" "Java-http-client/17.0.16" 5 (org.apache.kafka.connect.runtime.rest.RestServer) [qtp958509062-25]
-2025-12-24 09:07:54,268 INFO 172.16.20.158 - - [24/Dec/2025:09:07:54 +0000] "GET /connectors/neft-mq-source/status HTTP/1.1" 200 5360 "-" "Java-http-client/17.0.16" 4 (org.apache.kafka.connect.runtime.rest.RestServer) [qtp958509062-21]
-2025-12-24 09:07:54,286 INFO 172.16.20.158 - - [24/Dec/2025:09:07:54 +0000] "GET /connectors/neft-mq-source/topics HTTP/1.1" 200 32 "-" "Java-http-client/17.0.16" 9 (org.apache.kafka.connect.runtime.rest.RestServer) [qtp958509062-25]
-2025-12-24 09:08:01,163 INFO 172.16.16.2 - - [24/Dec/2025:09:08:01 +0000] "GET /health HTTP/1.1" 200 94 "-" "kube-probe/1.31" 6 (org.apache.kafka.connect.runtime.rest.RestServer) [qtp958509062-25]
-2025-12-24 09:08:01,163 INFO 172.16.16.2 - - [24/Dec/2025:09:08:01 +0000] "GET /health HTTP/1.1" 200 94 "-" "kube-probe/1.31" 6 (org.apache.kafka.connect.runtime.rest.RestServer) [qtp958509062-26]
-2025-12-24 09:08:11,161 INFO 172.16.16.2 - - [24/Dec/2025:09:08:11 +0000] "GET /health HTTP/1.1" 200 94 "-" "kube-probe/1.31" 4 (org.apache.kafka.connect.runtime.rest.RestServer) [qtp958509062-41]
-2025-12-24 09:08:11,161 INFO 172.16.16.2 - - [24/Dec/2025:09:08:11 +0000] "GET /health HTTP/1.1" 200 94 "-" "kube-probe/1.31" 4 (org.apache.kafka.connect.runtime.rest.RestServer) [qtp958509062-21]
-2025-12-24 09:08:21,162 INFO 172.16.16.2 - - [24/Dec/2025:09:08:21 +0000] "GET /health HTTP/1.1" 200 94 "-" "kube-probe/1.31" 5 (org.apache.kafka.connect.runtime.rest.RestServer) [qtp958509062-26]
-2025-12-24 09:08:21,162 INFO 172.16.16.2 - - [24/Dec/2025:09:08:21 +0000] "GET /health HTTP/1.1" 200 94 "-" "kube-probe/1.31" 5 (org.apache.kafka.connect.runtime.rest.RestServer) [qtp958509062-25]
-2025-12-24 09:08:31,161 INFO 172.16.16.2 - - [24/Dec/2025:09:08:31 +0000] "GET /health HTTP/1.1" 200 94 "-" "kube-probe/1.31" 5 (org.apache.kafka.connect.runtime.rest.RestServer) [qtp958509062-41]
-2025-12-24 09:08:31,161 INFO 172.16.16.2 - - [24/Dec/2025:09:08:31 +0000] "GET /health HTTP/1.1" 200 94 "-" "kube-probe/1.31" 5 (org.apache.kafka.connect.runtime.rest.RestServer) [qtp958509062-21]
-^C
+[osuser@bastion ~]$ oc get kafkaconnector neft-mq-source -n dev-kafka -o yaml
+apiVersion: kafka.strimzi.io/v1beta2
+kind: KafkaConnector
+metadata:
+  creationTimestamp: "2025-12-24T09:20:25Z"
+  generation: 1
+  labels:
+    strimzi.io/cluster: dev-kafka-connect-mq-test
+  name: neft-mq-source
+  namespace: dev-kafka
+  resourceVersion: "547650731"
+  uid: c1e087e3-da79-4326-876d-357df3c631dc
+spec:
+  class: com.ibm.eventstreams.connect.mqsource.MQSourceConnector
+  config:
+    mq.channel.name: IPH.TO.SBIEPAY
+    mq.connection.name.list: 10.176.10.213(2001)
+    mq.message.body.format: string
+    mq.queue: SBI_NEFT_INWARD
+    mq.queue.manager: SBI_NEFT
+    mq.record.builder: com.ibm.eventstreams.connect.mqsource.builders.DefaultRecordBuilder
+    topic: neft.raw.kafka.topic
+    value.converter: org.apache.kafka.connect.converters.ByteArrayConverter
+    value.converter.schemas.enable: "false"
+  tasksMax: 1
+status:
+  conditions:
+  - lastTransitionTime: "2025-12-24T09:20:25.614849031Z"
+    message: 'The following tasks have failed: 0, see connectorStatus for more details.'
+    reason: Throwable
+    status: "True"
+    type: NotReady
+  connectorStatus:
+    connector:
+      state: RUNNING
+      worker_id: dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083
+    name: neft-mq-source
+    tasks:
+    - id: 0
+      state: FAILED
+      trace: "org.apache.kafka.connect.errors.ConnectException: com.ibm.msg.client.jms.DetailedJMSRuntimeException:
+        JMSWMQ0018: Failed to connect to queue manager 'SBI_NEFT' with connection
+        mode 'Client' and host name '10.176.10.213(2001)'.\nCheck the queue manager
+        is started and if running in client mode, check there is a listener running.
+        Please see the linked exception for more information.\n\tat com.ibm.eventstreams.connect.mqsource.MQSourceTask.start(MQSourceTask.java:207)\n\tat
+        com.ibm.eventstreams.connect.mqsource.MQSourceTask.start(MQSourceTask.java:158)\n\tat
+        org.apache.kafka.connect.runtime.AbstractWorkerSourceTask.initializeAndStart(AbstractWorkerSourceTask.java:279)\n\tat
+        org.apache.kafka.connect.runtime.WorkerTask.doStart(WorkerTask.java:176)\n\tat
+        org.apache.kafka.connect.runtime.WorkerTask.doRun(WorkerTask.java:225)\n\tat
+        org.apache.kafka.connect.runtime.WorkerTask.run(WorkerTask.java:281)\n\tat
+        org.apache.kafka.connect.runtime.AbstractWorkerSourceTask.run(AbstractWorkerSourceTask.java:79)\n\tat
+        org.apache.kafka.connect.runtime.isolation.Plugins.lambda$withClassLoader$1(Plugins.java:238)\n\tat
+        java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:539)\n\tat
+        java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)\n\tat java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)\n\tat
+        java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)\n\tat
+        java.base/java.lang.Thread.run(Thread.java:840)\nCaused by: com.ibm.msg.client.jms.DetailedJMSRuntimeException:
+        JMSWMQ0018: Failed to connect to queue manager 'SBI_NEFT' with connection
+        mode 'Client' and host name '10.176.10.213(2001)'.\nCheck the queue manager
+        is started and if running in client mode, check there is a listener running.
+        Please see the linked exception for more information.\n\tat com.ibm.msg.client.jms.DetailedJMSException.getUnchecked(DetailedJMSException.java:268)\n\tat
+        com.ibm.msg.client.jms.internal.JmsErrorUtils.convertJMSException(JmsErrorUtils.java:173)\n\tat
+        com.ibm.msg.client.jms.admin.JmsConnectionFactoryImpl.createContext(JmsConnectionFactoryImpl.java:577)\n\tat
+        com.ibm.eventstreams.connect.mqsource.JMSWorker.connect(JMSWorker.java:216)\n\tat
+        com.ibm.eventstreams.connect.mqsource.MQSourceTask.start(MQSourceTask.java:184)\n\t...
+        12 more\nCaused by: com.ibm.mq.MQException: JMSCMQ0001: IBM MQ call failed
+        with compcode '2' ('MQCC_FAILED') reason '2540' ('MQRC_UNKNOWN_CHANNEL_NAME').\n\tat
+        com.ibm.msg.client.wmq.common.internal.Reason.createException(Reason.java:217)\n\tat
+        com.ibm.msg.client.wmq.internal.WMQConnection.<init>(WMQConnection.java:506)\n\tat
+        com.ibm.msg.client.wmq.factories.WMQConnectionFactory.createV7ProviderConnection(WMQConnectionFactory.java:9351)\n\tat
+        com.ibm.msg.client.wmq.factories.WMQConnectionFactory.createProviderConnection(WMQConnectionFactory.java:8581)\n\tat
+        com.ibm.msg.client.jms.admin.JmsConnectionFactoryImpl._createConnection(JmsConnectionFactoryImpl.java:322)\n\tat
+        com.ibm.msg.client.jms.admin.JmsConnectionFactoryImpl.createContext(JmsConnectionFactoryImpl.java:543)\n\t...
+        14 more\nCaused by: com.ibm.mq.jmqi.JmqiException: CC=2;RC=2540;AMQ9204: Connection
+        to host '10.176.10.213(2001)' rejected. [1=com.ibm.mq.jmqi.JmqiException[CC=2;RC=2540;AMQ9520:
+        Channel not defined remotely. [3=IPH.TO.SBIEPAY]],3=10.176.10.213(2001),4=,5=RemoteConnection.analyseErrorSegment]\n\tat
+        com.ibm.mq.jmqi.remote.api.RemoteFAP$Connector.jmqiConnect(RemoteFAP.java:13911)\n\tat
+        com.ibm.mq.jmqi.remote.api.RemoteFAP$Connector.access$200(RemoteFAP.java:13340)\n\tat
+        com.ibm.mq.jmqi.remote.api.RemoteFAP.jmqiConnect(RemoteFAP.java:1544)\n\tat
+        com.ibm.mq.jmqi.remote.api.RemoteFAP.jmqiConnect(RemoteFAP.java:1413)\n\tat
+        com.ibm.mq.ese.jmqi.InterceptedJmqiImpl.jmqiConnect(InterceptedJmqiImpl.java:377)\n\tat
+        com.ibm.mq.ese.jmqi.ESEJMQI.jmqiConnect(ESEJMQI.java:562)\n\tat com.ibm.msg.client.wmq.internal.WMQConnection.<init>(WMQConnection.java:438)\n\t...
+        18 more\nCaused by: com.ibm.mq.jmqi.JmqiException: CC=2;RC=2540;AMQ9520: Channel
+        not defined remotely. [3=IPH.TO.SBIEPAY]\n\tat com.ibm.mq.jmqi.remote.impl.RemoteConnection.analyseErrorSegment(RemoteConnection.java:4852)\n\tat
+        com.ibm.mq.jmqi.remote.impl.RemoteConnection.receiveTSH(RemoteConnection.java:3549)\n\tat
+        com.ibm.mq.jmqi.remote.impl.RemoteConnection.initSess(RemoteConnection.java:1421)\n\tat
+        com.ibm.mq.jmqi.remote.impl.RemoteConnection.connect(RemoteConnection.java:1009)\n\tat
+        com.ibm.mq.jmqi.remote.impl.RemoteConnectionSpecification.getNewConnection(RemoteConnectionSpecification.java:691)\n\tat
+        com.ibm.mq.jmqi.remote.impl.RemoteConnectionSpecification.getSessionFromNewConnection(RemoteConnectionSpecification.java:283)\n\tat
+        com.ibm.mq.jmqi.remote.impl.RemoteConnectionSpecification.getSession(RemoteConnectionSpecification.java:170)\n\tat
+        com.ibm.mq.jmqi.remote.impl.RemoteConnectionPool.getSession(RemoteConnectionPool.java:128)\n\tat
+        com.ibm.mq.jmqi.remote.api.RemoteFAP$Connector.jmqiConnect(RemoteFAP.java:13575)\n\t...
+        24 more\n"
+      worker_id: dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083
+    type: source
+  observedGeneration: 1
+  tasksMax: 1
+  topics: []
+[osuser@bastion ~]$ oc get kafkaconnector neft-mq-sink -n dev-kafka -o yaml
+apiVersion: kafka.strimzi.io/v1beta2
+kind: KafkaConnector
+metadata:
+  creationTimestamp: "2025-12-24T09:19:41Z"
+  generation: 1
+  labels:
+    strimzi.io/cluster: dev-kafka-connect-mq-test
+  name: neft-mq-sink
+  namespace: dev-kafka
+  resourceVersion: "547650318"
+  uid: 49bf61f2-6f58-4b4d-a183-79b57b24a03b
+spec:
+  class: com.ibm.eventstreams.connect.mqsink.MQSinkConnector
+  config:
+    mq.channel.name: EPAY.TO.IPH
+    mq.connection.name.list: 10.176.10.213(2001)
+    mq.message.body.format: string
+    mq.message.builder: com.ibm.eventstreams.connect.mqsink.builders.DefaultMessageBuilder
+    mq.queue: SBI_NEFT_OUTWARD
+    mq.queue.manager: SBI_NEFT
+    topics: neft.processed.kafka.topic
+    value.converter: org.apache.kafka.connect.converters.ByteArrayConverter
+    value.converter.schemas.enable: "false"
+  tasksMax: 1
+status:
+  conditions:
+  - lastTransitionTime: "2025-12-24T09:19:54.064316212Z"
+    message: 'The following tasks have failed: 0, see connectorStatus for more details.'
+    reason: Throwable
+    status: "True"
+    type: NotReady
+  connectorStatus:
+    connector:
+      state: RUNNING
+      worker_id: dev-kafka-connect-mq-test-connect-1.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083
+    name: neft-mq-sink
+    tasks:
+    - id: 0
+      state: FAILED
+      trace: "org.apache.kafka.connect.errors.ConnectException: com.ibm.msg.client.jms.DetailedJMSRuntimeException:
+        JMSWMQ0018: Failed to connect to queue manager 'SBI_NEFT' with connection
+        mode 'Client' and host name '10.176.10.213(2001)'.\nCheck the queue manager
+        is started and if running in client mode, check there is a listener running.
+        Please see the linked exception for more information.\n\tat com.ibm.eventstreams.connect.mqsink.MQSinkTask.start(MQSinkTask.java:94)\n\tat
+        org.apache.kafka.connect.runtime.WorkerSinkTask.initializeAndStart(WorkerSinkTask.java:324)\n\tat
+        org.apache.kafka.connect.runtime.WorkerTask.doStart(WorkerTask.java:176)\n\tat
+        org.apache.kafka.connect.runtime.WorkerTask.doRun(WorkerTask.java:225)\n\tat
+        org.apache.kafka.connect.runtime.WorkerTask.run(WorkerTask.java:281)\n\tat
+        org.apache.kafka.connect.runtime.isolation.Plugins.lambda$withClassLoader$1(Plugins.java:238)\n\tat
+        java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:539)\n\tat
+        java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)\n\tat java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)\n\tat
+        java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)\n\tat
+        java.base/java.lang.Thread.run(Thread.java:840)\nCaused by: com.ibm.msg.client.jms.DetailedJMSRuntimeException:
+        JMSWMQ0018: Failed to connect to queue manager 'SBI_NEFT' with connection
+        mode 'Client' and host name '10.176.10.213(2001)'.\nCheck the queue manager
+        is started and if running in client mode, check there is a listener running.
+        Please see the linked exception for more information.\n\tat com.ibm.msg.client.jms.DetailedJMSException.getUnchecked(DetailedJMSException.java:268)\n\tat
+        com.ibm.msg.client.jms.internal.JmsErrorUtils.convertJMSException(JmsErrorUtils.java:173)\n\tat
+        com.ibm.msg.client.jms.admin.JmsConnectionFactoryImpl.createContext(JmsConnectionFactoryImpl.java:577)\n\tat
+        com.ibm.eventstreams.connect.mqsink.JMSWorker.createJMSContext(JMSWorker.java:375)\n\tat
+        com.ibm.eventstreams.connect.mqsink.JMSWorker.connect(JMSWorker.java:147)\n\tat
+        com.ibm.eventstreams.connect.mqsink.MQSinkTask.start(MQSinkTask.java:90)\n\t...
+        10 more\nCaused by: com.ibm.mq.MQException: JMSCMQ0001: IBM MQ call failed
+        with compcode '2' ('MQCC_FAILED') reason '2540' ('MQRC_UNKNOWN_CHANNEL_NAME').\n\tat
+        com.ibm.msg.client.wmq.common.internal.Reason.createException(Reason.java:217)\n\tat
+        com.ibm.msg.client.wmq.internal.WMQConnection.<init>(WMQConnection.java:506)\n\tat
+        com.ibm.msg.client.wmq.factories.WMQConnectionFactory.createV7ProviderConnection(WMQConnectionFactory.java:9351)\n\tat
+        com.ibm.msg.client.wmq.factories.WMQConnectionFactory.createProviderConnection(WMQConnectionFactory.java:8581)\n\tat
+        com.ibm.msg.client.jms.admin.JmsConnectionFactoryImpl._createConnection(JmsConnectionFactoryImpl.java:322)\n\tat
+        com.ibm.msg.client.jms.admin.JmsConnectionFactoryImpl.createContext(JmsConnectionFactoryImpl.java:543)\n\t...
+        13 more\nCaused by: com.ibm.mq.jmqi.JmqiException: CC=2;RC=2540;AMQ9204: Connection
+        to host '10.176.10.213(2001)' rejected. [1=com.ibm.mq.jmqi.JmqiException[CC=2;RC=2540;AMQ9520:
+        Channel not defined remotely. [3=EPAY.TO.IPH]],3=10.176.10.213(2001),4=,5=RemoteConnection.analyseErrorSegment]\n\tat
+        com.ibm.mq.jmqi.remote.api.RemoteFAP$Connector.jmqiConnect(RemoteFAP.java:13911)\n\tat
+        com.ibm.mq.jmqi.remote.api.RemoteFAP$Connector.access$200(RemoteFAP.java:13340)\n\tat
+        com.ibm.mq.jmqi.remote.api.RemoteFAP.jmqiConnect(RemoteFAP.java:1544)\n\tat
+        com.ibm.mq.jmqi.remote.api.RemoteFAP.jmqiConnect(RemoteFAP.java:1413)\n\tat
+        com.ibm.mq.ese.jmqi.InterceptedJmqiImpl.jmqiConnect(InterceptedJmqiImpl.java:377)\n\tat
+        com.ibm.mq.ese.jmqi.ESEJMQI.jmqiConnect(ESEJMQI.java:562)\n\tat com.ibm.msg.client.wmq.internal.WMQConnection.<init>(WMQConnection.java:438)\n\t...
+        17 more\nCaused by: com.ibm.mq.jmqi.JmqiException: CC=2;RC=2540;AMQ9520: Channel
+        not defined remotely. [3=EPAY.TO.IPH]\n\tat com.ibm.mq.jmqi.remote.impl.RemoteConnection.analyseErrorSegment(RemoteConnection.java:4852)\n\tat
+        com.ibm.mq.jmqi.remote.impl.RemoteConnection.receiveTSH(RemoteConnection.java:3549)\n\tat
+        com.ibm.mq.jmqi.remote.impl.RemoteConnection.initSess(RemoteConnection.java:1421)\n\tat
+        com.ibm.mq.jmqi.remote.impl.RemoteConnection.connect(RemoteConnection.java:1009)\n\tat
+        com.ibm.mq.jmqi.remote.impl.RemoteConnectionSpecification.getNewConnection(RemoteConnectionSpecification.java:691)\n\tat
+        com.ibm.mq.jmqi.remote.impl.RemoteConnectionSpecification.getSessionFromNewConnection(RemoteConnectionSpecification.java:283)\n\tat
+        com.ibm.mq.jmqi.remote.impl.RemoteConnectionSpecification.getSession(RemoteConnectionSpecification.java:170)\n\tat
+        com.ibm.mq.jmqi.remote.impl.RemoteConnectionPool.getSession(RemoteConnectionPool.java:128)\n\tat
+        com.ibm.mq.jmqi.remote.api.RemoteFAP$Connector.jmqiConnect(RemoteFAP.java:13575)\n\t...
+        23 more\n"
+      worker_id: dev-kafka-connect-mq-test-connect-1.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083
+    type: sink
+  observedGeneration: 1
+  tasksMax: 1
+  topics: []
+[osuser@bastion ~]$
 [osuser@bastion ~]$
