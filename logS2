@@ -1,176 +1,251 @@
-Perfect 👍
-Below is a **quick, no-nonsense runbook** you can follow **from your side (OpenShift + Kafka)** to prove that *everything on our end is correct* before MQ team fixes their side.
-
----
-
-# 🔎 **NEFT MQ ↔ Kafka – Verification Runbook (Our Side)**
-
-## 1️⃣ Kafka Cluster Health (Baseline)
-
-```bash
-oc get pods -n dev-kafka
-```
-
-✅ Expected:
-
-* All **broker** and **controller** pods → `Running`
-* **KafkaConnect pods** → `Running`
-* **Entity Operator** → `2/2 Running`
-
-👉 If this is green, Kafka infra is OK.
-
----
-
-## 2️⃣ KafkaConnect API Health
-
-```bash
-oc exec -it dev-kafka-connect-mq-test-connect-0 -n dev-kafka -- \
-curl http://localhost:8083/
-```
-
-✅ Expected:
-
-```json
-{"version":"3.9.0","commit":"...","kafka_cluster_id":"..."}
-```
-
----
-
-## 3️⃣ Verify MQ Plugins Loaded
-
-```bash
-oc exec -it dev-kafka-connect-mq-test-connect-0 -n dev-kafka -- \
-curl http://localhost:8083/connector-plugins
-```
-
-✅ Must contain:
-
-* `com.ibm.eventstreams.connect.mqsource.MQSourceConnector`
-* `com.ibm.eventstreams.connect.mqsink.MQSinkConnector`
-
-👉 If visible → **image + jars are correct**
-
----
-
-## 4️⃣ Verify KafkaConnector CRs Exist
-
-```bash
-oc get kafkaconnector -n dev-kafka
-```
-
-Expected:
-
-* `neft-mq-source`
-* `neft-mq-sink`
-
----
-
-## 5️⃣ Check Connector Runtime Status
-
-```bash
-oc get kafkaconnector neft-mq-source -n dev-kafka -o yaml
-oc get kafkaconnector neft-mq-sink   -n dev-kafka -o yaml
-```
-
-### What matters:
-
-```yaml
-connectorStatus:
-  connector:
-    state: RUNNING
-  tasks:
-    - state: FAILED
-```
-
-❗ **Important**
-
-* `connector = RUNNING` → Kafka Connect is OK
-* `task = FAILED` → External dependency issue (MQ)
-
----
-
-## 6️⃣ Confirm Exact Failure Reason (Proof)
-
-From the same output, confirm this error:
-
-```
-MQRC_UNKNOWN_CHANNEL_NAME (2540)
-AMQ9520: Channel not defined remotely
-```
-
-✅ This error means:
-
-* MQ host reachable
-* MQ port reachable
-* Queue Manager reachable
-  ❌ **Only channel definition is missing / wrong on MQ**
-
-👉 **This is 100% MQ-side issue**
-
----
-
-## 7️⃣ Verify Kafka Topics Exist
-
-```bash
-oc exec -it dev-kafka-cluster-broker-0 -n dev-kafka -- \
-bin/kafka-topics.sh --bootstrap-server localhost:9093 --list | grep neft
-```
-
-Expected:
-
-* `neft.raw.kafka.topic`
-* `neft.processed.kafka.topic`
-
----
-
-## 8️⃣ Verify Kafka Can Accept Data (Optional Test)
-
-```bash
-oc exec -it dev-kafka-cluster-broker-0 -n dev-kafka -- \
-bin/kafka-console-producer.sh \
---bootstrap-server localhost:9093 \
---topic neft.raw.kafka.topic
-```
-
-Type:
-
-```
-test-message
-```
-
-If accepted → Kafka side is fully functional.
-
----
-
-## 9️⃣ Network Proof (Optional but Strong)
-
-```bash
-oc exec -it dev-kafka-connect-mq-test-connect-0 -n dev-kafka -- \
-nc -zv 10.176.10.213 2001
-```
-
-✅ If connection succeeds → Network + firewall OK
-
----
-
-# ✅ FINAL CONCLUSION (FOR YOU & MANAGEMENT)
-
-✔ Kafka Cluster – OK
-✔ Kafka Connect – OK
-✔ MQ Plugins – Loaded
-✔ Connectors – Created & Running
-✔ Network – Reachable
-❌ MQ Channels – **NOT defined / NOT accessible**
-
-📌 **There is nothing left to fix on our side.**
-
----
-
-If you want next:
-
-* 📄 Convert this into **Word / PDF**
-* 📧 Attach this as **technical proof to MQ email**
-* 📋 Create **production checklist**
-* 🧠 KT document for handover
-
-Just say 👍
+[osuser@bastion ~]$ oc get pods -n dev-kafka
+NAME                                                 READY   STATUS    RESTARTS   AGE
+dev-console-console-deployment-6bf885486b-lhh9s      2/2     Running   0          4d2h
+dev-kafka-cluster-broker-0                           1/1     Running   0          19h
+dev-kafka-cluster-broker-1                           1/1     Running   0          19h
+dev-kafka-cluster-broker-2                           1/1     Running   0          19h
+dev-kafka-cluster-controller-3                       1/1     Running   0          20h
+dev-kafka-cluster-controller-4                       1/1     Running   0          19h
+dev-kafka-cluster-controller-5                       1/1     Running   0          19h
+dev-kafka-cluster-cruise-control-7678c88585-mwkxd    1/1     Running   0          143m
+dev-kafka-cluster-entity-operator-656dcf5cdd-b6qxp   2/2     Running   0          155m
+dev-kafka-connect-mq-test-connect-0                  1/1     Running   0          33m
+dev-kafka-connect-mq-test-connect-1                  1/1     Running   0          32m
+dev-kafka-connect-mq-test-connect-2                  1/1     Running   0          30m
+dev-kafka-mirror-maker-mirrormaker2-0                0/1     Pending   0          20h
+[osuser@bastion ~]$
+[osuser@bastion ~]$
+[osuser@bastion ~]$
+[osuser@bastion ~]$ oc exec -it dev-kafka-connect-mq-test-connect-0 -n dev-kafka -- \
+> curl http://localhost:8083/
+{"version":"3.9.0","commit":"a60e31147e6b01ee","kafka_cluster_id":"3aEx1xmUSTWs8xSplBnYtA"}[osuser@bastion ~]$
+[osuser@bastion ~]$
+[osuser@bastion ~]$ oc exec -it dev-kafka-connect-mq-test-connect-0 -n dev-kafka -- \
+> curl http://localhost:8083/connector-plugins
+[{"class":"com.ibm.eventstreams.connect.mqsink.MQSinkConnector","type":"sink","version":"2.2.1"},{"class":"com.ibm.eventstreams.connect.mqsource.MQSourceConnector","type":"source","version":"2.6.0"},{"class":"org.apache.kafka.connect.mirror.MirrorCheckpointConnector","type":"source","version":"3.9.0"},{"class":"org.apache.kafka.connect.mirror.MirrorHeartbeatConnector","type":"source","version":"3.9.0"},{"class":"org.apache.kafka.connect.mirror.MirrorSourceConnector","type":"source","version":"3.9.0"}][osuser@bastion ~]$ oc get kafkaconnector -n dev-kafka
+NAME             CLUSTER                     CONNECTOR CLASS                                           MAX TASKS   READY
+neft-mq-sink     dev-kafka-connect-mq-test   com.ibm.eventstreams.connect.mqsink.MQSinkConnector       1
+neft-mq-source   dev-kafka-connect-mq-test   com.ibm.eventstreams.connect.mqsource.MQSourceConnector   1
+[osuser@bastion ~]$
+[osuser@bastion ~]$
+[osuser@bastion ~]$ oc get kafkaconnector neft-mq-source -n dev-kafka -o yaml
+apiVersion: kafka.strimzi.io/v1beta2
+kind: KafkaConnector
+metadata:
+  creationTimestamp: "2025-12-24T09:20:25Z"
+  generation: 1
+  labels:
+    strimzi.io/cluster: dev-kafka-connect-mq-test
+  name: neft-mq-source
+  namespace: dev-kafka
+  resourceVersion: "547650731"
+  uid: c1e087e3-da79-4326-876d-357df3c631dc
+spec:
+  class: com.ibm.eventstreams.connect.mqsource.MQSourceConnector
+  config:
+    mq.channel.name: IPH.TO.SBIEPAY
+    mq.connection.name.list: 10.176.10.213(2001)
+    mq.message.body.format: string
+    mq.queue: SBI_NEFT_INWARD
+    mq.queue.manager: SBI_NEFT
+    mq.record.builder: com.ibm.eventstreams.connect.mqsource.builders.DefaultRecordBuilder
+    topic: neft.raw.kafka.topic
+    value.converter: org.apache.kafka.connect.converters.ByteArrayConverter
+    value.converter.schemas.enable: "false"
+  tasksMax: 1
+status:
+  conditions:
+  - lastTransitionTime: "2025-12-24T09:20:25.614849031Z"
+    message: 'The following tasks have failed: 0, see connectorStatus for more details.'
+    reason: Throwable
+    status: "True"
+    type: NotReady
+  connectorStatus:
+    connector:
+      state: RUNNING
+      worker_id: dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083
+    name: neft-mq-source
+    tasks:
+    - id: 0
+      state: FAILED
+      trace: "org.apache.kafka.connect.errors.ConnectException: com.ibm.msg.client.jms.DetailedJMSRuntimeException:
+        JMSWMQ0018: Failed to connect to queue manager 'SBI_NEFT' with connection
+        mode 'Client' and host name '10.176.10.213(2001)'.\nCheck the queue manager
+        is started and if running in client mode, check there is a listener running.
+        Please see the linked exception for more information.\n\tat com.ibm.eventstreams.connect.mqsource.MQSourceTask.start(MQSourceTask.java:207)\n\tat
+        com.ibm.eventstreams.connect.mqsource.MQSourceTask.start(MQSourceTask.java:158)\n\tat
+        org.apache.kafka.connect.runtime.AbstractWorkerSourceTask.initializeAndStart(AbstractWorkerSourceTask.java:279)\n\tat
+        org.apache.kafka.connect.runtime.WorkerTask.doStart(WorkerTask.java:176)\n\tat
+        org.apache.kafka.connect.runtime.WorkerTask.doRun(WorkerTask.java:225)\n\tat
+        org.apache.kafka.connect.runtime.WorkerTask.run(WorkerTask.java:281)\n\tat
+        org.apache.kafka.connect.runtime.AbstractWorkerSourceTask.run(AbstractWorkerSourceTask.java:79)\n\tat
+        org.apache.kafka.connect.runtime.isolation.Plugins.lambda$withClassLoader$1(Plugins.java:238)\n\tat
+        java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:539)\n\tat
+        java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)\n\tat java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)\n\tat
+        java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)\n\tat
+        java.base/java.lang.Thread.run(Thread.java:840)\nCaused by: com.ibm.msg.client.jms.DetailedJMSRuntimeException:
+        JMSWMQ0018: Failed to connect to queue manager 'SBI_NEFT' with connection
+        mode 'Client' and host name '10.176.10.213(2001)'.\nCheck the queue manager
+        is started and if running in client mode, check there is a listener running.
+        Please see the linked exception for more information.\n\tat com.ibm.msg.client.jms.DetailedJMSException.getUnchecked(DetailedJMSException.java:268)\n\tat
+        com.ibm.msg.client.jms.internal.JmsErrorUtils.convertJMSException(JmsErrorUtils.java:173)\n\tat
+        com.ibm.msg.client.jms.admin.JmsConnectionFactoryImpl.createContext(JmsConnectionFactoryImpl.java:577)\n\tat
+        com.ibm.eventstreams.connect.mqsource.JMSWorker.connect(JMSWorker.java:216)\n\tat
+        com.ibm.eventstreams.connect.mqsource.MQSourceTask.start(MQSourceTask.java:184)\n\t...
+        12 more\nCaused by: com.ibm.mq.MQException: JMSCMQ0001: IBM MQ call failed
+        with compcode '2' ('MQCC_FAILED') reason '2540' ('MQRC_UNKNOWN_CHANNEL_NAME').\n\tat
+        com.ibm.msg.client.wmq.common.internal.Reason.createException(Reason.java:217)\n\tat
+        com.ibm.msg.client.wmq.internal.WMQConnection.<init>(WMQConnection.java:506)\n\tat
+        com.ibm.msg.client.wmq.factories.WMQConnectionFactory.createV7ProviderConnection(WMQConnectionFactory.java:9351)\n\tat
+        com.ibm.msg.client.wmq.factories.WMQConnectionFactory.createProviderConnection(WMQConnectionFactory.java:8581)\n\tat
+        com.ibm.msg.client.jms.admin.JmsConnectionFactoryImpl._createConnection(JmsConnectionFactoryImpl.java:322)\n\tat
+        com.ibm.msg.client.jms.admin.JmsConnectionFactoryImpl.createContext(JmsConnectionFactoryImpl.java:543)\n\t...
+        14 more\nCaused by: com.ibm.mq.jmqi.JmqiException: CC=2;RC=2540;AMQ9204: Connection
+        to host '10.176.10.213(2001)' rejected. [1=com.ibm.mq.jmqi.JmqiException[CC=2;RC=2540;AMQ9520:
+        Channel not defined remotely. [3=IPH.TO.SBIEPAY]],3=10.176.10.213(2001),4=,5=RemoteConnection.analyseErrorSegment]\n\tat
+        com.ibm.mq.jmqi.remote.api.RemoteFAP$Connector.jmqiConnect(RemoteFAP.java:13911)\n\tat
+        com.ibm.mq.jmqi.remote.api.RemoteFAP$Connector.access$200(RemoteFAP.java:13340)\n\tat
+        com.ibm.mq.jmqi.remote.api.RemoteFAP.jmqiConnect(RemoteFAP.java:1544)\n\tat
+        com.ibm.mq.jmqi.remote.api.RemoteFAP.jmqiConnect(RemoteFAP.java:1413)\n\tat
+        com.ibm.mq.ese.jmqi.InterceptedJmqiImpl.jmqiConnect(InterceptedJmqiImpl.java:377)\n\tat
+        com.ibm.mq.ese.jmqi.ESEJMQI.jmqiConnect(ESEJMQI.java:562)\n\tat com.ibm.msg.client.wmq.internal.WMQConnection.<init>(WMQConnection.java:438)\n\t...
+        18 more\nCaused by: com.ibm.mq.jmqi.JmqiException: CC=2;RC=2540;AMQ9520: Channel
+        not defined remotely. [3=IPH.TO.SBIEPAY]\n\tat com.ibm.mq.jmqi.remote.impl.RemoteConnection.analyseErrorSegment(RemoteConnection.java:4852)\n\tat
+        com.ibm.mq.jmqi.remote.impl.RemoteConnection.receiveTSH(RemoteConnection.java:3549)\n\tat
+        com.ibm.mq.jmqi.remote.impl.RemoteConnection.initSess(RemoteConnection.java:1421)\n\tat
+        com.ibm.mq.jmqi.remote.impl.RemoteConnection.connect(RemoteConnection.java:1009)\n\tat
+        com.ibm.mq.jmqi.remote.impl.RemoteConnectionSpecification.getNewConnection(RemoteConnectionSpecification.java:691)\n\tat
+        com.ibm.mq.jmqi.remote.impl.RemoteConnectionSpecification.getSessionFromNewConnection(RemoteConnectionSpecification.java:283)\n\tat
+        com.ibm.mq.jmqi.remote.impl.RemoteConnectionSpecification.getSession(RemoteConnectionSpecification.java:170)\n\tat
+        com.ibm.mq.jmqi.remote.impl.RemoteConnectionPool.getSession(RemoteConnectionPool.java:128)\n\tat
+        com.ibm.mq.jmqi.remote.api.RemoteFAP$Connector.jmqiConnect(RemoteFAP.java:13575)\n\t...
+        24 more\n"
+      worker_id: dev-kafka-connect-mq-test-connect-0.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083
+    type: source
+  observedGeneration: 1
+  tasksMax: 1
+  topics: []
+[osuser@bastion ~]$ oc get kafkaconnector neft-mq-sink   -n dev-kafka -o yaml
+apiVersion: kafka.strimzi.io/v1beta2
+kind: KafkaConnector
+metadata:
+  creationTimestamp: "2025-12-24T09:19:41Z"
+  generation: 1
+  labels:
+    strimzi.io/cluster: dev-kafka-connect-mq-test
+  name: neft-mq-sink
+  namespace: dev-kafka
+  resourceVersion: "547650318"
+  uid: 49bf61f2-6f58-4b4d-a183-79b57b24a03b
+spec:
+  class: com.ibm.eventstreams.connect.mqsink.MQSinkConnector
+  config:
+    mq.channel.name: EPAY.TO.IPH
+    mq.connection.name.list: 10.176.10.213(2001)
+    mq.message.body.format: string
+    mq.message.builder: com.ibm.eventstreams.connect.mqsink.builders.DefaultMessageBuilder
+    mq.queue: SBI_NEFT_OUTWARD
+    mq.queue.manager: SBI_NEFT
+    topics: neft.processed.kafka.topic
+    value.converter: org.apache.kafka.connect.converters.ByteArrayConverter
+    value.converter.schemas.enable: "false"
+  tasksMax: 1
+status:
+  conditions:
+  - lastTransitionTime: "2025-12-24T09:19:54.064316212Z"
+    message: 'The following tasks have failed: 0, see connectorStatus for more details.'
+    reason: Throwable
+    status: "True"
+    type: NotReady
+  connectorStatus:
+    connector:
+      state: RUNNING
+      worker_id: dev-kafka-connect-mq-test-connect-1.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083
+    name: neft-mq-sink
+    tasks:
+    - id: 0
+      state: FAILED
+      trace: "org.apache.kafka.connect.errors.ConnectException: com.ibm.msg.client.jms.DetailedJMSRuntimeException:
+        JMSWMQ0018: Failed to connect to queue manager 'SBI_NEFT' with connection
+        mode 'Client' and host name '10.176.10.213(2001)'.\nCheck the queue manager
+        is started and if running in client mode, check there is a listener running.
+        Please see the linked exception for more information.\n\tat com.ibm.eventstreams.connect.mqsink.MQSinkTask.start(MQSinkTask.java:94)\n\tat
+        org.apache.kafka.connect.runtime.WorkerSinkTask.initializeAndStart(WorkerSinkTask.java:324)\n\tat
+        org.apache.kafka.connect.runtime.WorkerTask.doStart(WorkerTask.java:176)\n\tat
+        org.apache.kafka.connect.runtime.WorkerTask.doRun(WorkerTask.java:225)\n\tat
+        org.apache.kafka.connect.runtime.WorkerTask.run(WorkerTask.java:281)\n\tat
+        org.apache.kafka.connect.runtime.isolation.Plugins.lambda$withClassLoader$1(Plugins.java:238)\n\tat
+        java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:539)\n\tat
+        java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)\n\tat java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)\n\tat
+        java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)\n\tat
+        java.base/java.lang.Thread.run(Thread.java:840)\nCaused by: com.ibm.msg.client.jms.DetailedJMSRuntimeException:
+        JMSWMQ0018: Failed to connect to queue manager 'SBI_NEFT' with connection
+        mode 'Client' and host name '10.176.10.213(2001)'.\nCheck the queue manager
+        is started and if running in client mode, check there is a listener running.
+        Please see the linked exception for more information.\n\tat com.ibm.msg.client.jms.DetailedJMSException.getUnchecked(DetailedJMSException.java:268)\n\tat
+        com.ibm.msg.client.jms.internal.JmsErrorUtils.convertJMSException(JmsErrorUtils.java:173)\n\tat
+        com.ibm.msg.client.jms.admin.JmsConnectionFactoryImpl.createContext(JmsConnectionFactoryImpl.java:577)\n\tat
+        com.ibm.eventstreams.connect.mqsink.JMSWorker.createJMSContext(JMSWorker.java:375)\n\tat
+        com.ibm.eventstreams.connect.mqsink.JMSWorker.connect(JMSWorker.java:147)\n\tat
+        com.ibm.eventstreams.connect.mqsink.MQSinkTask.start(MQSinkTask.java:90)\n\t...
+        10 more\nCaused by: com.ibm.mq.MQException: JMSCMQ0001: IBM MQ call failed
+        with compcode '2' ('MQCC_FAILED') reason '2540' ('MQRC_UNKNOWN_CHANNEL_NAME').\n\tat
+        com.ibm.msg.client.wmq.common.internal.Reason.createException(Reason.java:217)\n\tat
+        com.ibm.msg.client.wmq.internal.WMQConnection.<init>(WMQConnection.java:506)\n\tat
+        com.ibm.msg.client.wmq.factories.WMQConnectionFactory.createV7ProviderConnection(WMQConnectionFactory.java:9351)\n\tat
+        com.ibm.msg.client.wmq.factories.WMQConnectionFactory.createProviderConnection(WMQConnectionFactory.java:8581)\n\tat
+        com.ibm.msg.client.jms.admin.JmsConnectionFactoryImpl._createConnection(JmsConnectionFactoryImpl.java:322)\n\tat
+        com.ibm.msg.client.jms.admin.JmsConnectionFactoryImpl.createContext(JmsConnectionFactoryImpl.java:543)\n\t...
+        13 more\nCaused by: com.ibm.mq.jmqi.JmqiException: CC=2;RC=2540;AMQ9204: Connection
+        to host '10.176.10.213(2001)' rejected. [1=com.ibm.mq.jmqi.JmqiException[CC=2;RC=2540;AMQ9520:
+        Channel not defined remotely. [3=EPAY.TO.IPH]],3=10.176.10.213(2001),4=,5=RemoteConnection.analyseErrorSegment]\n\tat
+        com.ibm.mq.jmqi.remote.api.RemoteFAP$Connector.jmqiConnect(RemoteFAP.java:13911)\n\tat
+        com.ibm.mq.jmqi.remote.api.RemoteFAP$Connector.access$200(RemoteFAP.java:13340)\n\tat
+        com.ibm.mq.jmqi.remote.api.RemoteFAP.jmqiConnect(RemoteFAP.java:1544)\n\tat
+        com.ibm.mq.jmqi.remote.api.RemoteFAP.jmqiConnect(RemoteFAP.java:1413)\n\tat
+        com.ibm.mq.ese.jmqi.InterceptedJmqiImpl.jmqiConnect(InterceptedJmqiImpl.java:377)\n\tat
+        com.ibm.mq.ese.jmqi.ESEJMQI.jmqiConnect(ESEJMQI.java:562)\n\tat com.ibm.msg.client.wmq.internal.WMQConnection.<init>(WMQConnection.java:438)\n\t...
+        17 more\nCaused by: com.ibm.mq.jmqi.JmqiException: CC=2;RC=2540;AMQ9520: Channel
+        not defined remotely. [3=EPAY.TO.IPH]\n\tat com.ibm.mq.jmqi.remote.impl.RemoteConnection.analyseErrorSegment(RemoteConnection.java:4852)\n\tat
+        com.ibm.mq.jmqi.remote.impl.RemoteConnection.receiveTSH(RemoteConnection.java:3549)\n\tat
+        com.ibm.mq.jmqi.remote.impl.RemoteConnection.initSess(RemoteConnection.java:1421)\n\tat
+        com.ibm.mq.jmqi.remote.impl.RemoteConnection.connect(RemoteConnection.java:1009)\n\tat
+        com.ibm.mq.jmqi.remote.impl.RemoteConnectionSpecification.getNewConnection(RemoteConnectionSpecification.java:691)\n\tat
+        com.ibm.mq.jmqi.remote.impl.RemoteConnectionSpecification.getSessionFromNewConnection(RemoteConnectionSpecification.java:283)\n\tat
+        com.ibm.mq.jmqi.remote.impl.RemoteConnectionSpecification.getSession(RemoteConnectionSpecification.java:170)\n\tat
+        com.ibm.mq.jmqi.remote.impl.RemoteConnectionPool.getSession(RemoteConnectionPool.java:128)\n\tat
+        com.ibm.mq.jmqi.remote.api.RemoteFAP$Connector.jmqiConnect(RemoteFAP.java:13575)\n\t...
+        23 more\n"
+      worker_id: dev-kafka-connect-mq-test-connect-1.dev-kafka-connect-mq-test-connect.dev-kafka.svc:8083
+    type: sink
+  observedGeneration: 1
+  tasksMax: 1
+  topics: []
+[osuser@bastion ~]$ oc exec -it dev-kafka-cluster-broker-0 -n dev-kafka -- \
+> bin/kafka-topics.sh --bootstrap-server localhost:9093 --list | grep neft
+command terminated with exit code 130
+[osuser@bastion ~]$
+[osuser@bastion ~]$ oc get po -n dev-kafka
+NAME                                                 READY   STATUS    RESTARTS   AGE
+dev-console-console-deployment-6bf885486b-lhh9s      2/2     Running   0          4d2h
+dev-kafka-cluster-broker-0                           1/1     Running   0          20h
+dev-kafka-cluster-broker-1                           1/1     Running   0          20h
+dev-kafka-cluster-broker-2                           1/1     Running   0          19h
+dev-kafka-cluster-controller-3                       1/1     Running   0          20h
+dev-kafka-cluster-controller-4                       1/1     Running   0          20h
+dev-kafka-cluster-controller-5                       1/1     Running   0          20h
+dev-kafka-cluster-cruise-control-7678c88585-mwkxd    1/1     Running   0          148m
+dev-kafka-cluster-entity-operator-656dcf5cdd-b6qxp   2/2     Running   0          160m
+dev-kafka-connect-mq-test-connect-0                  1/1     Running   0          38m
+dev-kafka-connect-mq-test-connect-1                  1/1     Running   0          37m
+dev-kafka-connect-mq-test-connect-2                  1/1     Running   0          35m
+dev-kafka-mirror-maker-mirrormaker2-0                0/1     Pending   0          20h
+[osuser@bastion ~]$
+[osuser@bastion ~]$ oc exec -it dev-kafka-cluster-broker-0 -n dev-kafka -- bin/kafka-topics.sh --bootstrap-server localhost:9093 --list | grep neft
+command terminated with exit code 130
+[osuser@bastion ~]$ oc exec -it dev-kafka-connect-mq-test-connect-0 -n dev-kafka -- \
+> nc -zv 10.176.10.213 2001
+Ncat: Version 7.92 ( https://nmap.org/ncat )
+Ncat: Connected to 10.176.10.213:2001.
+Ncat: 0 bytes sent, 0 bytes received in 0.02 seconds.
+[osuser@bastion ~]$
