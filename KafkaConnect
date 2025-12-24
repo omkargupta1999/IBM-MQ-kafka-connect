@@ -6,11 +6,11 @@ metadata:
     meta.helm.sh/release-name: epay-common
     meta.helm.sh/release-namespace: dev-epay-common
     strimzi.io/use-connector-resources: 'true'
-  resourceVersion: '547562572'
+  resourceVersion: '547574958'
   name: dev-kafka-connect-mq-test
   uid: 63cf5ed6-029d-4d41-a66c-1f7b2702a8aa
   creationTimestamp: '2025-12-22T09:17:22Z'
-  generation: 11
+  generation: 12
   managedFields:
     - apiVersion: kafka.strimzi.io/v1beta2
       fieldsType: FieldsV1
@@ -35,14 +35,6 @@ metadata:
           'f:tls':
             .: {}
             'f:trustedCertificates': {}
-          'f:authentication':
-            .: {}
-            'f:passwordSecret':
-              .: {}
-              'f:password': {}
-              'f:secretName': {}
-            'f:type': {}
-            'f:username': {}
           .: {}
           'f:template':
             .: {}
@@ -90,6 +82,7 @@ metadata:
         'f:status':
           .: {}
           'f:conditions': {}
+          'f:connectorPlugins': {}
           'f:labelSelector': {}
           'f:observedGeneration': {}
           'f:replicas': {}
@@ -97,7 +90,7 @@ metadata:
       manager: strimzi-cluster-operator
       operation: Update
       subresource: status
-      time: '2025-12-24T07:27:57Z'
+      time: '2025-12-24T07:43:22Z'
   namespace: dev-kafka
   labels:
     app.kubernetes.io/component: kafka-connect
@@ -106,6 +99,7 @@ metadata:
     app.kubernetes.io/name: dev-kafka-connect-mq-test
     environment: dev
 spec:
+  bootstrapServers: 'dev-kafka-cluster-kafka-bootstrap.dev-kafka.svc.cluster.local:9093'
   config:
     status.storage.topic: dev-connect-cluster-status
     status.storage.replication.factor: -1
@@ -119,7 +113,8 @@ spec:
     key.converter: org.apache.kafka.connect.storage.StringConverter
     offset.flush.timeout.ms: 5000
     offset.storage.replication.factor: -1
-  bootstrapServers: 'dev-kafka-cluster-kafka-bootstrap.dev-kafka.svc.cluster.local:9093'
+  image: 'registry.dev.sbiepay.sbi:8443/library/kafka-connect-mq:v2'
+  replicas: 3
   resources:
     limits:
       cpu: 4
@@ -127,13 +122,6 @@ spec:
     requests:
       cpu: 2
       memory: 4Gi
-  version: 3.9.0
-  authentication:
-    passwordSecret:
-      password: password
-      secretName: epay-user
-    type: scram-sha-512
-    username: epay-user
   template:
     pod:
       affinity:
@@ -147,16 +135,26 @@ spec:
     trustedCertificates:
       - pattern: '*.crt'
         secretName: dev-kafka-cluster-cluster-ca-cert
-  image: 'registry.dev.sbiepay.sbi:8443/library/kafka-connect-mq:v2'
-  replicas: 3
+  version: 3.9.0
 status:
   conditions:
-    - lastTransitionTime: '2025-12-24T07:27:57.517361345Z'
-      message: Exceeded timeout of 300000ms while waiting for Pods resource dev-kafka-connect-mq-test-connect-2 in namespace dev-kafka to be ready
-      reason: TimeoutException
+    - lastTransitionTime: '2025-12-24T07:43:21.985568615Z'
       status: 'True'
-      type: NotReady
+      type: Ready
+  connectorPlugins:
+    - class: com.ibm.eventstreams.connect.mqsink.MQSinkConnector
+      type: sink
+      version: 2.2.1
+    - class: org.apache.kafka.connect.mirror.MirrorCheckpointConnector
+      type: source
+      version: 3.9.0
+    - class: org.apache.kafka.connect.mirror.MirrorHeartbeatConnector
+      type: source
+      version: 3.9.0
+    - class: org.apache.kafka.connect.mirror.MirrorSourceConnector
+      type: source
+      version: 3.9.0
   labelSelector: 'strimzi.io/cluster=dev-kafka-connect-mq-test,strimzi.io/name=dev-kafka-connect-mq-test-connect,strimzi.io/kind=KafkaConnect'
-  observedGeneration: 10
+  observedGeneration: 12
   replicas: 3
   url: 'http://dev-kafka-connect-mq-test-connect-api.dev-kafka.svc:8083'
